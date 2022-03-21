@@ -34,6 +34,18 @@
 #define DISTANCE_WHEEL_TO_CENTER 48.75                       // mm
 #define DISTANCE_WHEEL_TO_WHEEL DISTANCE_WHEEL_TO_CENTER * 2 // mm
 
+#define PID_INIT(PID, KP, KI, KD, MAX, MIN) \
+  do                                        \
+  {                                         \
+    PID.kp = atof(KP);                      \
+    PID.ki = atof(KI);                      \
+    PID.kd = atof(KD);                      \
+    PID.control_type = #PID;                \
+    PID.period = 1.0 / FREQUENCY_ENCODERS;  \
+    PID.max_control = MAX;                  \
+    PID.min_control = MIN;                  \
+  } while (0)
+
 class Semaphore
 {
 public:
@@ -193,7 +205,7 @@ float compute_pid(PID_t *pid, float setpoint, float sensed_output)
   float control_signal = p_term + i_term + d_term;
 
   make_between_control_bounds(pid, &control_signal);
-  ROS_INFO("[PID][%- 15s] setpoint: % 10.5f, error: % 10.5f, p: % 10.5f, i: % 10.5f, d: % 10.5f -> control: % 10.5f", pid->control_type.c_str(), setpoint, error, p_term, i_term, d_term, control_signal);
+  ROS_INFO("[PID][%- 15s] setpoint: % 8.4f, error: % 8.4f, p: % 8.4f, i: % 8.5f, d: % 8.4f -> control: % 8.4f", pid->control_type.c_str(), setpoint, error, p_term, i_term, d_term, control_signal);
 
   pid->last_error = error;
 
@@ -227,7 +239,7 @@ inline float get_radius_from_icc(const float linear_speed_r, const float linear_
 
 int main(int argc, char **argv)
 {
-  if (argc != 8)
+  if (argc != 11)
   {
     ROS_ERROR("incorrect number of parameters. Got %d", argc);
     return 1;
@@ -236,23 +248,9 @@ int main(int argc, char **argv)
   const bool finite_cyle = atoi(argv[1]) > 0;
   int running_iterations = atoi(argv[1]) * FREQUENCY;
 
-  pid_angular_linear.kp = atof(argv[2]);
-  pid_angular_linear.ki = atof(argv[3]);
-  pid_angular_linear.kd = atof(argv[4]);
-  pid_angular_linear.control_type = "angular&linear speed";
-
-  pid_linear.kp = atof(argv[5]);
-  pid_linear.ki = atof(argv[6]);
-  pid_linear.kd = atof(argv[7]);
-  pid_linear.control_type = "linear speed";
-
-  pid_angular_linear.period = 1.0 / 8.0; // tre period of the encoders
-  pid_angular_linear.max_control = MAX_ANGULAR_LINEAR_SPEED;
-  pid_angular_linear.min_control = MIN_ANGULAR_LINEAR_SPEED;
-
-  pid_linear.period = 1.0 / 8.0;
-  pid_linear.max_control = MAX_LINEAR_SPEED;
-  pid_linear.min_control = MIN_LINEAR_SPEED;
+  PID_INIT(pid_angular_linear, argv[2], argv[3], argv[4], MAX_ANGULAR_LINEAR_SPEED, MIN_ANGULAR_LINEAR_SPEED);
+  PID_INIT(pid_linear, argv[5], argv[6], argv[7], MAX_LINEAR_SPEED, MIN_LINEAR_SPEED);
+  PID_INIT(pid_angular, argv[8], argv[9], argv[10], MAX_ANGULAR_LINEAR_SPEED, MIN_ANGULAR_LINEAR_SPEED);
 
   ros::init(argc, argv, "algo_node");
 
