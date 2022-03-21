@@ -66,6 +66,7 @@
         "random": "cpp",
         "ranges": "cpp",
         "stop_token": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "decision_modes": "cpp"
     }
 }
