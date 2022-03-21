@@ -667,9 +667,9 @@ clean: ros-node-ropigo/CMakeFiles/std_msgs_generate_messages_lisp.dir/clean
 # Target rules for target ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir
 
 # All Build rule for target.
+ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/all: ros-node-ropigo/CMakeFiles/ropigo_generate_messages_cpp.dir/all
 ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/all: ros-node-ropigo/CMakeFiles/ropigo_generate_messages_lisp.dir/all
 ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/all: ros-node-ropigo/CMakeFiles/ropigo_generate_messages_py.dir/all
-ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/all: ros-node-ropigo/CMakeFiles/ropigo_generate_messages_cpp.dir/all
 	$(MAKE) -f ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/build.make ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/depend
 	$(MAKE) -f ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/build.make ros-node-ropigo/CMakeFiles/ropigo_generate_messages.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pi/catkin_ws/build/CMakeFiles --progress-num= "Built target ropigo_generate_messages"

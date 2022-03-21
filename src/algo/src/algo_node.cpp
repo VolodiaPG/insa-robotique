@@ -135,7 +135,7 @@ void encoder_callback(encoder_callback_t *enc, const std_msgs::Int16::ConstPtr &
   auto instant = std::chrono::steady_clock::now();
   enc->mutex.lock();
 
-  enc->tick_speed = (float)(msg->data - last) * FREQUENCY_ENCODERS; // / (std::chrono::duration<float>(instant - enc->last_updated_instant).count());
+  enc->tick_speed = (float)(msg->data - last) / (std::chrono::duration<float>(instant - enc->last_updated_instant).count());
   enc->new_value = true;
   enc->last_updated_instant = instant;
 
@@ -201,7 +201,7 @@ float compute_pid(PID_t *pid, float setpoint, float sensed_output)
 
   const float p_term = pid->kp * error;
   const float i_term = pid->ki * pid->total_error * pid->period;
-  const float d_term = pid->kd * (error - pid->last_error) / pid->period;
+  const float d_term = pid->kd * (pid->last_error - error) / pid->period;
   float control_signal = p_term + i_term + d_term;
 
   make_between_control_bounds(pid, &control_signal);
@@ -225,6 +225,16 @@ inline float get_angular_speed(const float linear_speed_r, const float linear_sp
 inline float get_linear_speed(const float linear_speed_r, const float linear_speed_l)
 {
   return 1e-3 * (linear_speed_r + linear_speed_l) / 2.0;
+}
+
+inline float get_angular_position(const float linear_speed_r, const float linear_speed_l, float last_angular_position)
+{
+  static auto last_chrono = std::chrono::steady_clock::now();
+  auto current_chrono = std::chrono::steady_clock::now();
+  // only works when speed of right wheel equals the speed of the left
+  const float ret = last_angular_position + 2.0 * get_linear_speed(linear_speed_r, linear_speed_l) / (DISTANCE_WHEEL_TO_WHEEL * 1e-3) * std::chrono::duration<float>(current_chrono - last_chrono).count();
+  last_chrono = current_chrono;
+  return ret;
 }
 
 inline float get_radius_from_icc(const float linear_speed_r, const float linear_speed_l)
@@ -289,9 +299,9 @@ int main(int argc, char **argv)
   ros::spinOnce();
 #endif
 
-  float angular_speed = 0, linear_speed = 0;
+  float angular_speed = 0, linear_speed = 0, last_angular_position = 0;
 
-  robot_actions_t current_action = robot_actions_t::ADVANCING;
+  robot_actions_t current_action = robot_actions_t::TURNING;
 
   while (ros::ok() && (!finite_cyle || running_iterations-- > 0))
   {
@@ -314,13 +324,15 @@ int main(int argc, char **argv)
       case robot_actions_t::ADVANCING:
         chosen_pid = &pid_angular_linear;
         angular_speed = compute_pid(chosen_pid, 0, get_angular_speed(speed_linear_r, speed_linear_l));
+        linear_speed = compute_pid(&pid_linear, 0.5, get_linear_speed(speed_linear_r, speed_linear_l));
         break;
       case robot_actions_t::TURNING:
         chosen_pid = &pid_angular;
+        last_angular_position = get_angular_position(speed_linear_r, speed_linear_l, last_angular_position);
+        angular_speed = compute_pid(chosen_pid, M_PI, last_angular_position);
+        linear_speed = 0;
         break;
       }
-
-      linear_speed = compute_pid(&pid_linear, 0.5, get_linear_speed(speed_linear_r, speed_linear_l));
 
       ROS_INFO("wheel speeds: R: % 10.5f, L: % 10.5f", speed_linear_r, speed_linear_l);
     }
@@ -360,12 +372,6 @@ int main(int argc, char **argv)
     vel.angular.y = 0.0;
     vel.angular.z = angular_speed;
 
-    /**
-     * The publish() function is how you send messages. The parameter
-     * is the message object. The type of this object must agree with the type
-     * given as a template parameter to the advertise<>() call, as was done
-     * in the constructor above.
-     */
     cmd_vel_pub.publish(vel);
 
     std::thread([&] {
@@ -380,11 +386,11 @@ int main(int argc, char **argv)
     }).detach();
 
     std::thread([&] {
-      if (angular_speed > 0)
+      if (angular_speed > 0.0)
       {
         led_r_off.call(srv);
       }
-      else if (angular_speed < 0)
+      else if (angular_speed < 0.0)
       {
         led_l_off.call(srv);
       }

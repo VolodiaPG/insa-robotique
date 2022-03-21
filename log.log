@@ -1,406 +1,354 @@
 make[1]: Entering directory '/home/pi/catkin_ws'
-rosrun algo algo_node 15 0.02 0.1 0.0001 0.1 1 0.002 0 0 0
-[31m[ERROR] [1647858450.555105649]: Cycle was too long to match desired frequency[0m
-[0m[ INFO] [1647858450.231083537]: Line Follower: [732][0m
-[0m[ INFO] [1647858450.277222851]: Rwheel msg: 9283[0m
-[0m[ INFO] [1647858450.277337277]: Lwheel msg: 9320[0m
-[0m[ INFO] [1647858450.330790785]: Line Follower: [731][0m
-[0m[ INFO] [1647858450.430768395]: Line Follower: [734][0m
-[0m[ INFO] [1647858450.530783921]: Line Follower: [736][0m
-[0m[ INFO] [1647858450.550594914]: Rwheel msg: 9283[0m
-[0m[ INFO] [1647858450.550774808]: Lwheel msg: 9320[0m
-[0m[ INFO] [1647858450.554358990]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.00000, d:   0.0000 -> control:   0.0000[0m
-[0m[ INFO] [1647858450.554465134]: [PID][pid_linear     ] setpoint:   1.0000, error:   1.0000, p:   0.1000, i:  0.12500, d:   0.0160 -> control:   0.2410[0m
-[0m[ INFO] [1647858450.554550394]: wheel speeds: R:    0.00000, L:    0.00000[0m
-[0m[ INFO] [1647858450.630823458]: Line Follower: [739][0m
-[0m[ INFO] [1647858450.730802630]: Line Follower: [739][0m
-[0m[ INFO] [1647858450.824351244]: Lwheel msg: 9320[0m
-[0m[ INFO] [1647858450.824475722]: Rwheel msg: 9283[0m
-[0m[ INFO] [1647858450.830717012]: Line Follower: [740][0m
-[0m[ INFO] [1647858450.855174050]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.00000, d:   0.0000 -> control:   0.0000[0m
-[0m[ INFO] [1647858450.855272330]: [PID][pid_linear     ] setpoint:   1.0000, error:   1.0000, p:   0.1000, i:  0.25000, d:   0.0000 -> control:   0.3500[0m
-[0m[ INFO] [1647858450.855340558]: wheel speeds: R:    0.00000, L:    0.00000[0m
-[0m[ INFO] [1647858450.930831808]: Line Follower: [760][0m
-[0m[ INFO] [1647858451.030840146]: Line Follower: [774][0m
-[0m[ INFO] [1647858451.100401040]: Lwheel msg: 9320[0m
-[0m[ INFO] [1647858451.100523435]: Rwheel msg: 9284[0m
-[0m[ INFO] [1647858451.130729632]: Line Follower: [756][0m
-[0m[ INFO] [1647858451.155180004]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i: -0.01119, d:  -0.0007 -> control:  -0.0298[0m
-[0m[ INFO] [1647858451.155274430]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.9564, p:   0.0956, i:  0.36955, d:  -0.0007 -> control:   0.4645[0m
-[0m[ INFO] [1647858451.155349065]: wheel speeds: R:   87.26646, L:    0.00000[0m
-[0m[ INFO] [1647858451.230823855]: Line Follower: [764][0m
-[0m[ INFO] [1647858451.330850111]: Line Follower: [747][0m
-[0m[ INFO] [1647858451.376269484]: Lwheel msg: 9323[0m
-[0m[ INFO] [1647858451.376425472]: Rwheel msg: 9287[0m
-[0m[ INFO] [1647858451.430788294]: Line Follower: [746][0m
-[0m[ INFO] [1647858451.455185541]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i: -0.01119, d:   0.0007 -> control:  -0.0105[0m
-[0m[ INFO] [1647858451.455284655]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.7382, p:   0.0738, i:  0.46182, d:  -0.0035 -> control:   0.5322[0m
-[0m[ INFO] [1647858451.455359810]: wheel speeds: R:  261.79938, L:  261.79938[0m
-[0m[ INFO] [1647858451.530812049]: Line Follower: [698][0m
-[0m[ INFO] [1647858451.630815961]: Line Follower: [704][0m
-[0m[ INFO] [1647858451.684343583]: Lwheel msg: 9327[0m
-[0m[ INFO] [1647858451.684682434]: Rwheel msg: 9292[0m
-[0m[ INFO] [1647858451.730757634]: Line Follower: [689][0m
-[0m[ INFO] [1647858451.755184099]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i: -0.02238, d:  -0.0007 -> control:  -0.0410[0m
-[0m[ INFO] [1647858451.755283161]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.6073, p:   0.0607, i:  0.53773, d:  -0.0021 -> control:   0.5964[0m
-[0m[ INFO] [1647858451.755361806]: wheel speeds: R:  436.33231, L:  349.06586[0m
-[0m[ INFO] [1647858451.830811493]: Line Follower: [722][0m
-[0m[ INFO] [1647858451.930819467]: Line Follower: [729][0m
-[0m[ INFO] [1647858451.990331663]: Lwheel msg: 9333[0m
-[0m[ INFO] [1647858451.990452755]: Rwheel msg: 9298[0m
-[0m[ INFO] [1647858452.031564881]: Line Follower: [760][0m
-[0m[ INFO] [1647858452.055196928]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i: -0.02238, d:   0.0007 -> control:  -0.0217[0m
-[0m[ INFO] [1647858452.055340573]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.4764, p:   0.0476, i:  0.59728, d:  -0.0021 -> control:   0.6428[0m
-[0m[ INFO] [1647858452.055464373]: wheel speeds: R:  523.59875, L:  523.59875[0m
-[0m[ INFO] [1647858452.130849842]: Line Follower: [764][0m
-[0m[ INFO] [1647858452.230843442]: Line Follower: [742][0m
-[0m[ INFO] [1647858452.299980225]: Lwheel msg: 9340[0m
-[0m[ INFO] [1647858452.300112099]: Rwheel msg: 9305[0m
-[0m[ INFO] [1647858452.330938238]: Line Follower: [718][0m
-[0m[ INFO] [1647858452.355204497]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i: -0.02238, d:   0.0000 -> control:  -0.0224[0m
-[0m[ INFO] [1647858452.355325121]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.3891, p:   0.0389, i:  0.64593, d:  -0.0014 -> control:   0.6834[0m
-[0m[ INFO] [1647858452.355403818]: wheel speeds: R:  610.86523, L:  610.86523[0m
-[0m[ INFO] [1647858452.430821734]: Line Follower: [683][0m
-[0m[ INFO] [1647858452.530834135]: Line Follower: [660][0m
-[0m[ INFO] [1647858452.607646569]: Lwheel msg: 9349[0m
-[0m[ INFO] [1647858452.607764588]: Rwheel msg: 9313[0m
-[0m[ INFO] [1647858452.631132523]: Line Follower: [717][0m
-[0m[ INFO] [1647858452.655205972]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i: -0.01119, d:   0.0007 -> control:   0.0074[0m
-[0m[ INFO] [1647858452.655313627]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.2582, p:   0.0258, i:  0.67820, d:  -0.0021 -> control:   0.7019[0m
-[0m[ INFO] [1647858452.655393886]: wheel speeds: R:  698.13171, L:  785.39819[0m
-[0m[ INFO] [1647858452.730842584]: Line Follower: [748][0m
-[0m[ INFO] [1647858452.831630185]: Line Follower: [769][0m
-[0m[ INFO] [1647858452.912379922]: Lwheel msg: 9357[0m
-[0m[ INFO] [1647858452.912520337]: Rwheel msg: 9322[0m
-[0m[ INFO] [1647858452.931250664]: Line Follower: [772][0m
-[0m[ INFO] [1647858452.955199790]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i: -0.02238, d:  -0.0014 -> control:  -0.0417[0m
-[0m[ INFO] [1647858452.955302446]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.2582, p:   0.0258, i:  0.71048, d:   0.0000 -> control:   0.7363[0m
-[0m[ INFO] [1647858452.955379424]: wheel speeds: R:  785.39819, L:  698.13171[0m
-[0m[ INFO] [1647858453.030835465]: Line Follower: [654][0m
-[0m[ INFO] [1647858453.130829169]: Line Follower: [655][0m
-[0m[ INFO] [1647858453.220260377]: Lwheel msg: 9366[0m
-[0m[ INFO] [1647858453.220379855]: Rwheel msg: 9331[0m
-[0m[ INFO] [1647858453.232408012]: Line Follower: [716][0m
-[0m[ INFO] [1647858453.255208349]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i: -0.02238, d:   0.0007 -> control:  -0.0217[0m
-[0m[ INFO] [1647858453.255315691]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.2146, p:   0.0215, i:  0.73731, d:  -0.0007 -> control:   0.7581[0m
-[0m[ INFO] [1647858453.255448294]: wheel speeds: R:  785.39819, L:  785.39819[0m
-[0m[ INFO] [1647858453.330820013]: Line Follower: [758][0m
-[0m[ INFO] [1647858453.430867778]: Line Follower: [792][0m
-[0m[ INFO] [1647858453.531174604]: Line Follower: [744][0m
-[0m[ INFO] [1647858453.531606006]: Lwheel msg: 9376[0m
-[0m[ INFO] [1647858453.531713973]: Rwheel msg: 9340[0m
-[0m[ INFO] [1647858453.555202167]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i: -0.01119, d:   0.0007 -> control:   0.0074[0m
-[0m[ INFO] [1647858453.555311489]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.1710, p:   0.0171, i:  0.75868, d:  -0.0007 -> control:   0.7751[0m
-[0m[ INFO] [1647858453.555387113]: wheel speeds: R:  785.39819, L:  872.66461[0m
-[0m[ INFO] [1647858453.630842790]: Line Follower: [674][0m
-[0m[ INFO] [1647858453.731755390]: Line Follower: [715][0m
-[0m[ INFO] [1647858453.832043518]: Line Follower: [746][0m
-[0m[ INFO] [1647858453.848788709]: Lwheel msg: 9388[0m
-[0m[ INFO] [1647858453.849059435]: Rwheel msg: 9350[0m
-[0m[ INFO] [1647858453.855252392]: [PID][pid_angular_linear] setpoint:   0.0000, error:   1.7901, p:   0.0358, i:  0.01119, d:   0.0007 -> control:   0.0477[0m
-[0m[ INFO] [1647858453.855459785]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.76369, d:  -0.0021 -> control:   0.7656[0m
-[0m[ INFO] [1647858453.855613377]: wheel speeds: R:  872.66461, L:  1047.19751[0m
-[0m[ INFO] [1647858453.931988524]: Line Follower: [788][0m
-[0m[ INFO] [1647858454.031989467]: Line Follower: [802][0m
-[0m[ INFO] [1647858454.132038274]: Line Follower: [770][0m
-[0m[ INFO] [1647858454.168589041]: Lwheel msg: 9399[0m
-[0m[ INFO] [1647858454.168890131]: Rwheel msg: 9360[0m
-[0m[ INFO] [1647858454.231976874]: Line Follower: [723][0m
-[0m[ INFO] [1647858454.255272153]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.02238, d:  -0.0007 -> control:   0.0396[0m
-[0m[ INFO] [1647858454.255471995]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0837, p:   0.0084, i:  0.77415, d:   0.0007 -> control:   0.7832[0m
-[0m[ INFO] [1647858454.255616577]: wheel speeds: R:  872.66461, L:  959.93109[0m
-[0m[ INFO] [1647858454.332145471]: Line Follower: [727][0m
-[0m[ INFO] [1647858454.432015061]: Line Follower: [794][0m
-[0m[ INFO] [1647858454.489507851]: Lwheel msg: 9410[0m
-[0m[ INFO] [1647858454.489794827]: Rwheel msg: 9371[0m
-[0m[ INFO] [1647858454.532713080]: Line Follower: [814][0m
-[0m[ INFO] [1647858454.555294305]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.02238, d:  -0.0007 -> control:   0.0217[0m
-[0m[ INFO] [1647858454.555500969]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.77916, d:  -0.0007 -> control:   0.7825[0m
-[0m[ INFO] [1647858454.555653155]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858454.632086947]: Line Follower: [771][0m
-[0m[ INFO] [1647858454.732100598]: Line Follower: [752][0m
-[0m[ INFO] [1647858454.819094488]: Lwheel msg: 9422[0m
-[0m[ INFO] [1647858454.819778960]: Rwheel msg: 9382[0m
-[0m[ INFO] [1647858454.834575890]: Line Follower: [736][0m
-[0m[ INFO] [1647858454.855292290]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.03356, d:   0.0007 -> control:   0.0522[0m
-[0m[ INFO] [1647858454.855499111]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.77872, d:  -0.0007 -> control:   0.7777[0m
-[0m[ INFO] [1647858454.855664109]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858454.932133890]: Line Follower: [798][0m
-[0m[ INFO] [1647858455.032081292]: Line Follower: [823][0m
-[0m[ INFO] [1647858455.132173536]: Line Follower: [842][0m
-[0m[ INFO] [1647858455.147690198]: Lwheel msg: 9433[0m
-[0m[ INFO] [1647858455.147892748]: Rwheel msg: 9393[0m
-[0m[ INFO] [1647858455.155257047]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.03356, d:  -0.0007 -> control:   0.0328[0m
-[0m[ INFO] [1647858455.155437670]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.78372, d:   0.0007 -> control:   0.7884[0m
-[0m[ INFO] [1647858455.155594074]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858455.232004168]: Line Follower: [785][0m
-[0m[ INFO] [1647858455.332008861]: Line Follower: [778][0m
-[0m[ INFO] [1647858455.432014075]: Line Follower: [818][0m
-[0m[ INFO] [1647858455.471289085]: Lwheel msg: 9445[0m
-[0m[ INFO] [1647858455.471580644]: Rwheel msg: 9403[0m
-[0m[ INFO] [1647858455.531977779]: Line Follower: [817][0m
-[0m[ INFO] [1647858455.555270194]: [PID][pid_angular_linear] setpoint:   0.0000, error:   1.7901, p:   0.0358, i:  0.05594, d:   0.0014 -> control:   0.0932[0m
-[0m[ INFO] [1647858455.555464098]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.78873, d:   0.0000 -> control:   0.7927[0m
-[0m[ INFO] [1647858455.555609461]: wheel speeds: R:  872.66461, L:  1047.19751[0m
-[0m[ INFO] [1647858455.632056065]: Line Follower: [824][0m
-[0m[ INFO] [1647858455.732011383]: Line Follower: [831][0m
-[0m[ INFO] [1647858455.791177124]: Lwheel msg: 9456[0m
-[0m[ INFO] [1647858455.791456028]: Rwheel msg: 9414[0m
-[0m[ INFO] [1647858455.832163418]: Line Follower: [935][0m
-[0m[ INFO] [1647858455.855297189]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.05594, d:  -0.0014 -> control:   0.0545[0m
-[0m[ INFO] [1647858455.855499114]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.79374, d:  -0.0000 -> control:   0.7977[0m
-[0m[ INFO] [1647858455.855647602]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858455.932006915]: Line Follower: [847][0m
-[0m[ INFO] [1647858456.032927484]: Line Follower: [783][0m
-[0m[ INFO] [1647858456.111436410]: Lwheel msg: 9468[0m
-[0m[ INFO] [1647858456.111640002]: Rwheel msg: 9425[0m
-[0m[ INFO] [1647858456.132213539]: Line Follower: [783][0m
-[0m[ INFO] [1647858456.155312362]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.06713, d:   0.0007 -> control:   0.0857[0m
-[0m[ INFO] [1647858456.155509651]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.79330, d:  -0.0007 -> control:   0.7922[0m
-[0m[ INFO] [1647858456.155659129]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858456.232008182]: Line Follower: [757][0m
-[0m[ INFO] [1647858456.332029489]: Line Follower: [813][0m
-[0m[ INFO] [1647858456.428133858]: Lwheel msg: 9480[0m
-[0m[ INFO] [1647858456.428424480]: Rwheel msg: 9436[0m
-[0m[ INFO] [1647858456.433182295]: Line Follower: [715][0m
-[0m[ INFO] [1647858456.455335191]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.07832, d:   0.0000 -> control:   0.0962[0m
-[0m[ INFO] [1647858456.455541386]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.79285, d:   0.0000 -> control:   0.7925[0m
-[0m[ INFO] [1647858456.455691124]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858456.532092468]: Line Follower: [739][0m
-[0m[ INFO] [1647858456.632026589]: Line Follower: [593][0m
-[0m[ INFO] [1647858456.732073469]: Line Follower: [685][0m
-[0m[ INFO] [1647858456.749617506]: Lwheel msg: 9492[0m
-[0m[ INFO] [1647858456.749824639]: Rwheel msg: 9447[0m
-[0m[ INFO] [1647858456.755255520]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.08950, d:   0.0000 -> control:   0.1074[0m
-[0m[ INFO] [1647858456.755433904]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.79240, d:   0.0000 -> control:   0.7920[0m
-[0m[ INFO] [1647858456.755583954]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858456.832001913]: Line Follower: [650][0m
-[0m[ INFO] [1647858456.932010824]: Line Follower: [615][0m
-[0m[ INFO] [1647858457.032025882]: Line Follower: [663][0m
-[0m[ INFO] [1647858457.074226955]: Lwheel msg: 9503[0m
-[0m[ INFO] [1647858457.074805022]: Rwheel msg: 9459[0m
-[0m[ INFO] [1647858457.133084835]: Line Follower: [706][0m
-[0m[ INFO] [1647858457.155275751]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i:  0.07832, d:  -0.0014 -> control:   0.0590[0m
-[0m[ INFO] [1647858457.155464394]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.79196, d:   0.0000 -> control:   0.7916[0m
-[0m[ INFO] [1647858457.155606580]: wheel speeds: R:  1047.19751, L:  959.93109[0m
-[0m[ INFO] [1647858457.232032612]: Line Follower: [708][0m
-[0m[ INFO] [1647858457.332030794]: Line Follower: [699][0m
-[0m[ INFO] [1647858457.400607948]: Lwheel msg: 9515[0m
-[0m[ INFO] [1647858457.400810342]: Rwheel msg: 9470[0m
-[0m[ INFO] [1647858457.432818448]: Line Follower: [734][0m
-[0m[ INFO] [1647858457.455298111]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.08950, d:   0.0014 -> control:   0.1088[0m
-[0m[ INFO] [1647858457.455510765]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.79151, d:   0.0000 -> control:   0.7912[0m
-[0m[ INFO] [1647858457.455698471]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858457.532034816]: Line Follower: [714][0m
-[0m[ INFO] [1647858457.632038154]: Line Follower: [720][0m
-[0m[ INFO] [1647858457.732053316]: Line Follower: [783][0m
-[0m[ INFO] [1647858457.737537738]: Lwheel msg: 9527[0m
-[0m[ INFO] [1647858457.737742111]: Rwheel msg: 9483[0m
-[0m[ INFO] [1647858457.755405834]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i:  0.07832, d:  -0.0014 -> control:   0.0590[0m
-[0m[ INFO] [1647858457.755603384]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0908, p:  -0.0091, i:  0.78016, d:  -0.0014 -> control:   0.7697[0m
-[0m[ INFO] [1647858457.755756352]: wheel speeds: R:  1134.46399, L:  1047.19751[0m
-[0m[ INFO] [1647858457.832099727]: Line Follower: [763][0m
-[0m[ INFO] [1647858457.932091556]: Line Follower: [793][0m
-[0m[ INFO] [1647858458.032024322]: Line Follower: [782][0m
-[0m[ INFO] [1647858458.056835680]: Lwheel msg: 9538[0m
-[0m[ INFO] [1647858458.057140833]: Rwheel msg: 9494[0m
-[0m[ INFO] [1647858458.132076723]: Line Follower: [801][0m
-[0m[ INFO] [1647858458.155292524]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.07832, d:   0.0007 -> control:   0.0790[0m
-[0m[ INFO] [1647858458.155492887]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.78517, d:   0.0021 -> control:   0.7913[0m
-[0m[ INFO] [1647858458.155650698]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858458.232030323]: Line Follower: [795][0m
-[0m[ INFO] [1647858458.332034391]: Line Follower: [763][0m
-[0m[ INFO] [1647858458.373494743]: Lwheel msg: 9549[0m
-[0m[ INFO] [1647858458.373761615]: Rwheel msg: 9504[0m
-[0m[ INFO] [1647858458.433084438]: Line Follower: [762][0m
-[0m[ INFO] [1647858458.455276708]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.08950, d:   0.0007 -> control:   0.1081[0m
-[0m[ INFO] [1647858458.455481758]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0837, p:   0.0084, i:  0.79563, d:   0.0007 -> control:   0.8000[0m
-[0m[ INFO] [1647858458.455617381]: wheel speeds: R:  872.66461, L:  959.93109[0m
-[0m[ INFO] [1647858458.532040600]: Line Follower: [756][0m
-[0m[ INFO] [1647858458.632088105]: Line Follower: [805][0m
-[0m[ INFO] [1647858458.700918954]: Lwheel msg: 9561[0m
-[0m[ INFO] [1647858458.701126087]: Rwheel msg: 9516[0m
-[0m[ INFO] [1647858458.733723406]: Line Follower: [829][0m
-[0m[ INFO] [1647858458.755300682]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.08950, d:  -0.0007 -> control:   0.0888[0m
-[0m[ INFO] [1647858458.755494795]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.78973, d:  -0.0021 -> control:   0.7829[0m
-[0m[ INFO] [1647858458.755648595]: wheel speeds: R:  1047.19751, L:  1047.19751[0m
-[0m[ INFO] [1647858458.832033273]: Line Follower: [800][0m
-[0m[ INFO] [1647858458.932136558]: Line Follower: [752][0m
-[0m[ INFO] [1647858459.016481882]: Lwheel msg: 9574[0m
-[0m[ INFO] [1647858459.016687141]: Rwheel msg: 9527[0m
-[0m[ INFO] [1647858459.032758589]: Line Follower: [757][0m
-[0m[ INFO] [1647858459.055294032]: [PID][pid_angular_linear] setpoint:   0.0000, error:   1.7901, p:   0.0358, i:  0.11188, d:   0.0014 -> control:   0.1491[0m
-[0m[ INFO] [1647858459.055534186]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.78383, d:   0.0000 -> control:   0.7791[0m
-[0m[ INFO] [1647858459.055698039]: wheel speeds: R:  959.93109, L:  1134.46399[0m
-[0m[ INFO] [1647858459.132047925]: Line Follower: [784][0m
-[0m[ INFO] [1647858459.232022514]: Line Follower: [778][0m
-[0m[ INFO] [1647858459.332075331]: Line Follower: [734][0m
-[0m[ INFO] [1647858459.333175997]: Lwheel msg: 9586[0m
-[0m[ INFO] [1647858459.333376620]: Rwheel msg: 9538[0m
-[0m[ INFO] [1647858459.355290716]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.12307, d:  -0.0007 -> control:   0.1403[0m
-[0m[ INFO] [1647858459.355577536]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.78339, d:   0.0007 -> control:   0.7837[0m
-[0m[ INFO] [1647858459.356041645]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858459.432009296]: Line Follower: [718][0m
-[0m[ INFO] [1647858459.532022114]: Line Follower: [670][0m
-[0m[ INFO] [1647858459.632115816]: Line Follower: [720][0m
-[0m[ INFO] [1647858459.652921850]: Lwheel msg: 9597[0m
-[0m[ INFO] [1647858459.653128307]: Rwheel msg: 9549[0m
-[0m[ INFO] [1647858459.655246774]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.12307, d:  -0.0007 -> control:   0.1224[0m
-[0m[ INFO] [1647858459.655417710]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.78839, d:   0.0007 -> control:   0.7931[0m
-[0m[ INFO] [1647858459.655574583]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858459.732043947]: Line Follower: [788][0m
-[0m[ INFO] [1647858459.832142650]: Line Follower: [831][0m
-[0m[ INFO] [1647858459.932033177]: Line Follower: [773][0m
-[0m[ INFO] [1647858459.972663954]: Lwheel msg: 9608[0m
-[0m[ INFO] [1647858459.974028523]: Rwheel msg: 9560[0m
-[0m[ INFO] [1647858460.031979954]: Line Follower: [749][0m
-[0m[ INFO] [1647858460.055283150]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.12307, d:   0.0000 -> control:   0.1231[0m
-[0m[ INFO] [1647858460.055499033]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.79340, d:   0.0000 -> control:   0.7974[0m
-[0m[ INFO] [1647858460.055649500]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858460.132014282]: Line Follower: [789][0m
-[0m[ INFO] [1647858460.232024548]: Line Follower: [803][0m
-[0m[ INFO] [1647858460.291781220]: Lwheel msg: 9620[0m
-[0m[ INFO] [1647858460.292085488]: Rwheel msg: 9571[0m
-[0m[ INFO] [1647858460.333054647]: Line Follower: [797][0m
-[0m[ INFO] [1647858460.355306916]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.13426, d:   0.0007 -> control:   0.1529[0m
-[0m[ INFO] [1647858460.355507644]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.79296, d:  -0.0007 -> control:   0.7919[0m
-[0m[ INFO] [1647858460.355657538]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858460.432054663]: Line Follower: [794][0m
-[0m[ INFO] [1647858460.532059773]: Line Follower: [782][0m
-[0m[ INFO] [1647858460.617690552]: Lwheel msg: 9633[0m
-[0m[ INFO] [1647858460.618326639]: Rwheel msg: 9582[0m
-[0m[ INFO] [1647858460.632250089]: Line Follower: [799][0m
-[0m[ INFO] [1647858460.655703908]: [PID][pid_angular_linear] setpoint:   0.0000, error:   1.7901, p:   0.0358, i:  0.15663, d:   0.0007 -> control:   0.1931[0m
-[0m[ INFO] [1647858460.656237496]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.78706, d:  -0.0007 -> control:   0.7816[0m
-[0m[ INFO] [1647858460.656436505]: wheel speeds: R:  959.93109, L:  1134.46399[0m
-[0m[ INFO] [1647858460.732187803]: Line Follower: [786][0m
-[0m[ INFO] [1647858460.832119216]: Line Follower: [757][0m
-[0m[ INFO] [1647858460.932150158]: Line Follower: [758][0m
-[0m[ INFO] [1647858460.934201960]: Lwheel msg: 9644[0m
-[0m[ INFO] [1647858460.935008566]: Rwheel msg: 9594[0m
-[0m[ INFO] [1647858460.955298668]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i:  0.14544, d:  -0.0021 -> control:   0.1254[0m
-[0m[ INFO] [1647858460.955502833]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.78661, d:   0.0007 -> control:   0.7870[0m
-[0m[ INFO] [1647858460.955646998]: wheel speeds: R:  1047.19751, L:  959.93109[0m
-[0m[ INFO] [1647858461.032078185]: Line Follower: [733][0m
-[0m[ INFO] [1647858461.132016994]: Line Follower: [761][0m
-[0m[ INFO] [1647858461.232029239]: Line Follower: [796][0m
-[0m[ INFO] [1647858461.252295747]: Lwheel msg: 9655[0m
-[0m[ INFO] [1647858461.252809388]: Rwheel msg: 9606[0m
-[0m[ INFO] [1647858461.255279675]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i:  0.13426, d:   0.0000 -> control:   0.1164[0m
-[0m[ INFO] [1647858461.255478058]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.78617, d:   0.0000 -> control:   0.7858[0m
-[0m[ INFO] [1647858461.255626546]: wheel speeds: R:  1047.19751, L:  959.93109[0m
-[0m[ INFO] [1647858461.332046952]: Line Follower: [817][0m
-[0m[ INFO] [1647858461.432029927]: Line Follower: [796][0m
-[0m[ INFO] [1647858461.532034255]: Line Follower: [924][0m
-[0m[ INFO] [1647858461.572895342]: Lwheel msg: 9666[0m
-[0m[ INFO] [1647858461.574989539]: Rwheel msg: 9617[0m
-[0m[ INFO] [1647858461.631961709]: Line Follower: [903][0m
-[0m[ INFO] [1647858461.655276832]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.13426, d:   0.0007 -> control:   0.1350[0m
-[0m[ INFO] [1647858461.655467299]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.79118, d:   0.0007 -> control:   0.7959[0m
-[0m[ INFO] [1647858461.655612923]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858461.732051453]: Line Follower: [528][0m
-[0m[ INFO] [1647858461.832027188]: Line Follower: [65][0m
-[0m[ INFO] [1647858461.892729111]: Lwheel msg: 9677[0m
-[0m[ INFO] [1647858461.892937547]: Rwheel msg: 9628[0m
-[0m[ INFO] [1647858461.933175255]: Line Follower: [46][0m
-[0m[ INFO] [1647858461.955298099]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.13426, d:   0.0000 -> control:   0.1343[0m
-[0m[ INFO] [1647858461.955493669]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.79618, d:   0.0000 -> control:   0.8000[0m
-[0m[ INFO] [1647858461.955637991]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858462.032038658]: Line Follower: [45][0m
-[0m[ INFO] [1647858462.132035121]: Line Follower: [45][0m
-[0m[ INFO] [1647858462.217621631]: Lwheel msg: 9689[0m
-[0m[ INFO] [1647858462.218286936]: Rwheel msg: 9640[0m
-[0m[ INFO] [1647858462.232591007]: Line Follower: [45][0m
-[0m[ INFO] [1647858462.255302230]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.13426, d:   0.0000 -> control:   0.1343[0m
-[0m[ INFO] [1647858462.255500613]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.79028, d:  -0.0014 -> control:   0.7842[0m
-[0m[ INFO] [1647858462.255651236]: wheel speeds: R:  1047.19751, L:  1047.19751[0m
-[0m[ INFO] [1647858462.332058361]: Line Follower: [45][0m
-[0m[ INFO] [1647858462.432051492]: Line Follower: [42][0m
-[0m[ INFO] [1647858462.532069102]: Line Follower: [41][0m
-[0m[ INFO] [1647858462.533573930]: Lwheel msg: 9701[0m
-[0m[ INFO] [1647858462.533832625]: Rwheel msg: 9652[0m
-[0m[ INFO] [1647858462.555456724]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.13426, d:   0.0000 -> control:   0.1343[0m
-[0m[ INFO] [1647858462.555667399]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.78438, d:   0.0000 -> control:   0.7797[0m
-[0m[ INFO] [1647858462.555831824]: wheel speeds: R:  1047.19751, L:  1047.19751[0m
-[0m[ INFO] [1647858462.632041816]: Line Follower: [43][0m
-[0m[ INFO] [1647858462.732063592]: Line Follower: [42][0m
-[0m[ INFO] [1647858462.832064587]: Line Follower: [41][0m
-[0m[ INFO] [1647858462.856313034]: Lwheel msg: 9713[0m
-[0m[ INFO] [1647858462.856556156]: Rwheel msg: 9664[0m
-[0m[ INFO] [1647858462.932020791]: Line Follower: [41][0m
-[0m[ INFO] [1647858462.955284352]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.13426, d:   0.0000 -> control:   0.1343[0m
-[0m[ INFO] [1647858462.955492318]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.77849, d:   0.0000 -> control:   0.7738[0m
-[0m[ INFO] [1647858462.955639140]: wheel speeds: R:  1047.19751, L:  1047.19751[0m
-[0m[ INFO] [1647858463.032025432]: Line Follower: [45][0m
-[0m[ INFO] [1647858463.132013094]: Line Follower: [467][0m
-[0m[ INFO] [1647858463.175590507]: Lwheel msg: 9725[0m
-[0m[ INFO] [1647858463.176104772]: Rwheel msg: 9675[0m
-[0m[ INFO] [1647858463.232090130]: Line Follower: [696][0m
-[0m[ INFO] [1647858463.255300618]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.14544, d:   0.0007 -> control:   0.1641[0m
-[0m[ INFO] [1647858463.255508689]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.77804, d:   0.0007 -> control:   0.7784[0m
-[0m[ INFO] [1647858463.255644781]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858463.332109354]: Line Follower: [697][0m
-[0m[ INFO] [1647858463.432126286]: Line Follower: [728][0m
-[0m[ INFO] [1647858463.509336111]: Lwheel msg: 9737[0m
-[0m[ INFO] [1647858463.509991729]: Rwheel msg: 9687[0m
-[0m[ INFO] [1647858463.532069157]: Line Follower: [695][0m
-[0m[ INFO] [1647858463.555420998]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.14544, d:  -0.0007 -> control:   0.1447[0m
-[0m[ INFO] [1647858463.555621100]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0472, p:  -0.0047, i:  0.77214, d:  -0.0007 -> control:   0.7667[0m
-[0m[ INFO] [1647858463.555761776]: wheel speeds: R:  1047.19751, L:  1047.19751[0m
-[0m[ INFO] [1647858463.632036142]: Line Follower: [694][0m
-[0m[ INFO] [1647858463.732112865]: Line Follower: [707][0m
-[0m[ INFO] [1647858463.827090423]: Lwheel msg: 9748[0m
-[0m[ INFO] [1647858463.827964164]: Rwheel msg: 9698[0m
-[0m[ INFO] [1647858463.832306462]: Line Follower: [715][0m
-[0m[ INFO] [1647858463.855308828]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.14544, d:   0.0000 -> control:   0.1454[0m
-[0m[ INFO] [1647858463.855529920]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.77715, d:   0.0014 -> control:   0.7826[0m
-[0m[ INFO] [1647858463.855688720]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858463.932039492]: Line Follower: [748][0m
-[0m[ INFO] [1647858464.032047987]: Line Follower: [667][0m
-[0m[ INFO] [1647858464.132042523]: Line Follower: [746][0m
-[0m[ INFO] [1647858464.156272949]: Lwheel msg: 9759[0m
-[0m[ INFO] [1647858464.156627737]: Rwheel msg: 9709[0m
-[0m[ INFO] [1647858464.232042216]: Line Follower: [738][0m
-[0m[ INFO] [1647858464.255274892]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.0000, p:   0.0000, i:  0.14544, d:   0.0000 -> control:   0.1454[0m
-[0m[ INFO] [1647858464.255472807]: [PID][pid_linear     ] setpoint:   1.0000, error:   0.0401, p:   0.0040, i:  0.78216, d:   0.0000 -> control:   0.7862[0m
-[0m[ INFO] [1647858464.255606243]: wheel speeds: R:  959.93109, L:  959.93109[0m
-[0m[ INFO] [1647858464.332051441]: Line Follower: [737][0m
-[0m[ INFO] [1647858464.432040717]: Line Follower: [743][0m
-[0m[ INFO] [1647858464.477859617]: Lwheel msg: 9771[0m
-[0m[ INFO] [1647858464.478639609]: Rwheel msg: 9720[0m
-[0m[ INFO] [1647858464.532910974]: Line Follower: [713][0m
-[0m[ INFO] [1647858464.555323138]: [PID][pid_angular_linear] setpoint:   0.0000, error:   0.8950, p:   0.0179, i:  0.15663, d:   0.0007 -> control:   0.1752[0m
-[0m[ INFO] [1647858464.555536521]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.78171, d:  -0.0007 -> control:   0.7807[0m
-[0m[ INFO] [1647858464.555671988]: wheel speeds: R:  959.93109, L:  1047.19751[0m
-[0m[ INFO] [1647858464.632039061]: Line Follower: [720][0m
-[0m[ INFO] [1647858464.732083702]: Line Follower: [728][0m
-[0m[ INFO] [1647858464.808076560]: Lwheel msg: 9782[0m
-[0m[ INFO] [1647858464.808927072]: Rwheel msg: 9732[0m
-[0m[ INFO] [1647858464.832386986]: Line Follower: [706][0m
-[0m[ INFO] [1647858464.855303467]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i:  0.14544, d:  -0.0014 -> control:   0.1261[0m
-[0m[ INFO] [1647858464.855506277]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.78127, d:   0.0000 -> control:   0.7809[0m
-[0m[ INFO] [1647858464.855672838]: wheel speeds: R:  1047.19751, L:  959.93109[0m
-[0m[ INFO] [1647858464.932056942]: Line Follower: [710][0m
-[0m[ INFO] [1647858465.032067573]: Line Follower: [701][0m
-[0m[ INFO] [1647858465.128936413]: Lwheel msg: 9793[0m
-[0m[ INFO] [1647858465.130228118]: Rwheel msg: 9744[0m
-[0m[ INFO] [1647858465.132592625]: Line Follower: [729][0m
-[0m[ INFO] [1647858465.155259734]: [PID][pid_angular_linear] setpoint:   0.0000, error:  -0.8950, p:  -0.0179, i:  0.13426, d:   0.0000 -> control:   0.1164[0m
-[0m[ INFO] [1647858465.155464836]: [PID][pid_linear     ] setpoint:   1.0000, error:  -0.0036, p:  -0.0004, i:  0.78082, d:   0.0000 -> control:   0.7805[0m
-[0m[ INFO] [1647858465.155600303]: wheel speeds: R:  1047.19751, L:  959.93109[0m
-[0m[ INFO] [1647858465.232032897]: Line Follower: [717][0m
-[0m[ INFO] [1647858465.332041704]: Line Follower: [719][0m
-[0m[ INFO] [1647858465.432032022]: Line Follower: [755][0m
-[0m[ INFO] [1647858465.453089981]: Lwheel msg: 9805[0m
-[0m[ INFO] [1647858465.453321802]: Rwheel msg: 9755[0m
-[0m[ INFO] [1647858465.532047236]: Line Follower: [694][0m
-[0m[ INFO] [1647858465.632086825]: Line Follower: [706][0m
-[0m[ INFO] [1647858465.732011622]: Line Follower: [723][0m
-[0m[ INFO] [1647858465.767616254]: Lwheel msg: 9816[0m
-[0m[ INFO] [1647858465.767887553]: Rwheel msg: 9767[0m
-[0m[ INFO] [1647858465.832028138]: Line Follower: [734][0m
-[0m[ INFO] [1647858465.932063143]: Line Follower: [720][0m
-[0m[ INFO] [1647858466.031993358]: Line Follower: [704][0m
-[0m[ INFO] [1647858466.043788236]: Lwheel msg: 9827[0m
-[0m[ INFO] [1647858466.044366824]: Rwheel msg: 9777[0m
+rosrun algo algo_node 15 0.02 0.1 0.0001 0.1 1 0.002 1 0 0
+[31m[ERROR] [1647860803.071942121]: Cycle was too long to match desired frequency[0m
+[0m[ INFO] [1647860802.793045115]: Rwheel msg: 3297[0m
+[0m[ INFO] [1647860802.793328653]: Lwheel msg: 3086[0m
+[0m[ INFO] [1647860802.830866025]: Line Follower: [673][0m
+[0m[ INFO] [1647860802.930836187]: Line Follower: [672][0m
+[0m[ INFO] [1647860803.030819682]: Line Follower: [674][0m
+[0m[ INFO] [1647860803.067656696]: Lwheel msg: 3086[0m
+[0m[ INFO] [1647860803.067803153]: Rwheel msg: 3297[0m
+[0m[ INFO] [1647860803.071395720]: [PID][pid_angular    ] setpoint:   3.1416, error:   3.1416, p:   3.1416, i:  0.00000, d:  -0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860803.071484677]: wheel speeds: R:    0.00000, L:    0.00000[0m
+[0m[ INFO] [1647860803.130880364]: Line Follower: [673][0m
+[0m[ INFO] [1647860803.230830787]: Line Follower: [672][0m
+[0m[ INFO] [1647860803.330846417]: Line Follower: [672][0m
+[0m[ INFO] [1647860803.341832397]: Rwheel msg: 3297[0m
+[0m[ INFO] [1647860803.341992812]: Lwheel msg: 3086[0m
+[0m[ INFO] [1647860803.372057917]: [PID][pid_angular    ] setpoint:   3.1416, error:   3.1416, p:   3.1416, i:  0.00000, d:   0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860803.372171354]: wheel speeds: R:    0.00000, L:    0.00000[0m
+[0m[ INFO] [1647860803.431028973]: Line Follower: [677][0m
+[0m[ INFO] [1647860803.530867470]: Line Follower: [660][0m
+[0m[ INFO] [1647860803.630901902]: Line Follower: [672][0m
+[0m[ INFO] [1647860803.661175182]: Rwheel msg: 3298[0m
+[0m[ INFO] [1647860803.661295285]: Lwheel msg: 3087[0m
+[0m[ INFO] [1647860803.672031632]: [PID][pid_angular    ] setpoint:   3.1416, error:   2.9314, p:   2.9314, i:  0.00000, d:   0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860803.672137516]: wheel speeds: R:   34.15871, L:   34.16293[0m
+[0m[ INFO] [1647860803.731720284]: Line Follower: [632][0m
+[0m[ INFO] [1647860803.832100494]: Line Follower: [645][0m
+[0m[ INFO] [1647860803.932165968]: Line Follower: [670][0m
+[0m[ INFO] [1647860803.971341083]: Rwheel msg: 3301[0m
+[0m[ INFO] [1647860803.971550247]: Lwheel msg: 3089[0m
+[0m[ INFO] [1647860803.972200032]: [PID][pid_angular    ] setpoint:   3.1416, error:   2.3902, p:   2.3902, i:  0.00000, d:   0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860803.972362947]: wheel speeds: R:  105.49358, L:   70.31042[0m
+[0m[ INFO] [1647860804.032646854]: Line Follower: [669][0m
+[0m[ INFO] [1647860804.130813701]: Line Follower: [668][0m
+[0m[ INFO] [1647860804.230840790]: Line Follower: [688][0m
+[0m[ INFO] [1647860804.301042719]: Rwheel msg: 3304[0m
+[0m[ INFO] [1647860804.301164905]: Lwheel msg: 3092[0m
+[0m[ INFO] [1647860804.331629016]: Line Follower: [704][0m
+[0m[ INFO] [1647860804.372066358]: [PID][pid_angular    ] setpoint:   3.1416, error:   1.5759, p:   1.5759, i:  0.00000, d:   0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860804.372198961]: wheel speeds: R:   99.26911, L:   99.29272[0m
+[0m[ INFO] [1647860804.430943039]: Line Follower: [738][0m
+[0m[ INFO] [1647860804.530831744]: Line Follower: [724][0m
+[0m[ INFO] [1647860804.615502638]: Lwheel msg: 3094[0m
+[0m[ INFO] [1647860804.615628990]: Rwheel msg: 3306[0m
+[0m[ INFO] [1647860804.631962779]: Line Follower: [731][0m
+[0m[ INFO] [1647860804.672072624]: [PID][pid_angular    ] setpoint:   3.1416, error:   1.1489, p:   1.1489, i:  0.00000, d:   0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860804.672232102]: wheel speeds: R:   69.35618, L:   69.39777[0m
+[0m[ INFO] [1647860804.730828786]: Line Follower: [723][0m
+[0m[ INFO] [1647860804.831023217]: Line Follower: [745][0m
+[0m[ INFO] [1647860804.924472040]: Rwheel msg: 3309[0m
+[0m[ INFO] [1647860804.924993024]: Lwheel msg: 3096[0m
+[0m[ INFO] [1647860804.930732444]: Line Follower: [741][0m
+[0m[ INFO] [1647860804.972057381]: [PID][pid_angular    ] setpoint:   3.1416, error:   0.6060, p:   0.6060, i:  0.00000, d:   0.0000 -> control:   0.3000[0m
+[0m[ INFO] [1647860804.972171286]: wheel speeds: R:  105.95004, L:   70.49748[0m
+[0m[ INFO] [1647860805.030909896]: Line Follower: [729][0m
+[0m[ INFO] [1647860805.130936411]: Line Follower: [709][0m
+[0m[ INFO] [1647860805.230888345]: Line Follower: [684][0m
+[0m[ INFO] [1647860805.232795356]: Rwheel msg: 3312[0m
+[0m[ INFO] [1647860805.233091082]: Lwheel msg: 3099[0m
+[0m[ INFO] [1647860805.272169219]: [PID][pid_angular    ] setpoint:   3.1416, error:  -0.0475, p:  -0.0475, i:  0.00000, d:   0.0000 -> control:  -0.0475[0m
+[0m[ INFO] [1647860805.272274426]: wheel speeds: R:  106.13776, L:  106.21579[0m
+[0m[ INFO] [1647860805.330875381]: Line Follower: [651][0m
+[0m[ INFO] [1647860805.430853408]: Line Follower: [624][0m
+[0m[ INFO] [1647860805.530900653]: Line Follower: [605][0m
+[0m[ INFO] [1647860805.539586969]: Lwheel msg: 3101[0m
+[0m[ INFO] [1647860805.539741342]: Rwheel msg: 3315[0m
+[0m[ INFO] [1647860805.572063351]: [PID][pid_angular    ] setpoint:   3.1416, error:  -0.5945, p:  -0.5945, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860805.572296005]: wheel speeds: R:  106.62737, L:   71.17587[0m
+[0m[ INFO] [1647860805.630843211]: Line Follower: [587][0m
+[0m[ INFO] [1647860805.730829310]: Line Follower: [585][0m
+[0m[ INFO] [1647860805.830845774]: Line Follower: [584][0m
+[0m[ INFO] [1647860805.856482748]: Rwheel msg: 3316[0m
+[0m[ INFO] [1647860805.856605455]: Lwheel msg: 3103[0m
+[0m[ INFO] [1647860805.872053784]: [PID][pid_angular    ] setpoint:   3.1416, error:  -0.9122, p:  -0.9122, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860805.872158158]: wheel speeds: R:   34.43570, L:   68.82503[0m
+[0m[ INFO] [1647860805.930849894]: Line Follower: [578][0m
+[0m[ INFO] [1647860806.030838806]: Line Follower: [622][0m
+[0m[ INFO] [1647860806.130915738]: Line Follower: [619][0m
+[0m[ INFO] [1647860806.166031051]: Rwheel msg: 3317[0m
+[0m[ INFO] [1647860806.166165997]: Lwheel msg: 3103[0m
+[0m[ INFO] [1647860806.172063176]: [PID][pid_angular    ] setpoint:   3.1416, error:  -1.0207, p:  -1.0207, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860806.172182133]: wheel speeds: R:   35.23963, L:    0.00000[0m
+[0m[ INFO] [1647860806.230831369]: Line Follower: [665][0m
+[0m[ INFO] [1647860806.330840802]: Line Follower: [689][0m
+[0m[ INFO] [1647860806.430907317]: Line Follower: [728][0m
+[0m[ INFO] [1647860806.471555073]: Rwheel msg: 3320[0m
+[0m[ INFO] [1647860806.472139598]: Lwheel msg: 3106[0m
+[0m[ INFO] [1647860806.530859510]: Line Follower: [726][0m
+[0m[ INFO] [1647860806.572049552]: [PID][pid_angular    ] setpoint:   3.1416, error:  -1.8988, p:  -1.8988, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860806.572156530]: wheel speeds: R:  107.11061, L:  106.94330[0m
+[0m[ INFO] [1647860806.630862901]: Line Follower: [719][0m
+[0m[ INFO] [1647860806.731132435]: Line Follower: [740][0m
+[0m[ INFO] [1647860806.775715046]: Rwheel msg: 3323[0m
+[0m[ INFO] [1647860806.775860253]: Lwheel msg: 3109[0m
+[0m[ INFO] [1647860806.830884162]: Line Follower: [712][0m
+[0m[ INFO] [1647860806.872067694]: [PID][pid_angular    ] setpoint:   3.1416, error:  -2.5614, p:  -2.5614, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860806.872196078]: wheel speeds: R:  107.58984, L:  107.75761[0m
+[0m[ INFO] [1647860806.930890990]: Line Follower: [703][0m
+[0m[ INFO] [1647860807.030840163]: Line Follower: [716][0m
+[0m[ INFO] [1647860807.086841197]: Rwheel msg: 3326[0m
+[0m[ INFO] [1647860807.086980415]: Lwheel msg: 3111[0m
+[0m[ INFO] [1647860807.130874387]: Line Follower: [675][0m
+[0m[ INFO] [1647860807.172071616]: [PID][pid_angular    ] setpoint:   3.1416, error:  -3.1008, p:  -3.1008, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860807.172199376]: wheel speeds: R:  105.18201, L:   70.12136[0m
+[0m[ INFO] [1647860807.230883611]: Line Follower: [673][0m
+[0m[ INFO] [1647860807.331302779]: Line Follower: [659][0m
+[0m[ INFO] [1647860807.401805069]: Rwheel msg: 3329[0m
+[0m[ INFO] [1647860807.401935433]: Lwheel msg: 3114[0m
+[0m[ INFO] [1647860807.430945653]: Line Follower: [666][0m
+[0m[ INFO] [1647860807.472071789]: [PID][pid_angular    ] setpoint:   3.1416, error:  -3.7402, p:  -3.7402, i:  0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860807.472223767]: wheel speeds: R:  103.90226, L:  103.90534[0m
+[0m[ INFO] [1647860807.530878524]: Line Follower: [673][0m
+[0m[ INFO] [1647860807.630872071]: Line Follower: [666][0m
+[0m[ INFO] [1647860807.706744826]: Lwheel msg: 3116[0m
+[0m[ INFO] [1647860807.706964095]: Rwheel msg: 3331[0m
+[0m[ INFO] [1647860807.731142386]: Line Follower: [670][0m
+[0m[ INFO] [1647860807.772069358]: [PID][pid_angular    ] setpoint:   3.1416, error:  -4.1804, p:  -4.1804, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860807.772195919]: wheel speeds: R:   71.49851, L:   71.56641[0m
+[0m[ INFO] [1647860807.830839322]: Line Follower: [658][0m
+[0m[ INFO] [1647860807.930862296]: Line Follower: [636][0m
+[0m[ INFO] [1647860808.015576470]: Rwheel msg: 3334[0m
+[0m[ INFO] [1647860808.015908081]: Lwheel msg: 3118[0m
+[0m[ INFO] [1647860808.030803500]: Line Follower: [675][0m
+[0m[ INFO] [1647860808.072054010]: [PID][pid_angular    ] setpoint:   3.1416, error:  -4.7238, p:  -4.7238, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860808.072181092]: wheel speeds: R:  106.02959, L:   70.57256[0m
+[0m[ INFO] [1647860808.130853661]: Line Follower: [660][0m
+[0m[ INFO] [1647860808.230907260]: Line Follower: [704][0m
+[0m[ INFO] [1647860808.326349656]: Rwheel msg: 3337[0m
+[0m[ INFO] [1647860808.326678663]: Lwheel msg: 3121[0m
+[0m[ INFO] [1647860808.330870495]: Line Follower: [719][0m
+[0m[ INFO] [1647860808.372044808]: [PID][pid_angular    ] setpoint:   3.1416, error:  -5.3718, p:  -5.3718, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860808.372146630]: wheel speeds: R:  105.30146, L:  105.30009[0m
+[0m[ INFO] [1647860808.431617941]: Line Follower: [732][0m
+[0m[ INFO] [1647860808.530936234]: Line Follower: [720][0m
+[0m[ INFO] [1647860808.630930980]: Line Follower: [722][0m
+[0m[ INFO] [1647860808.631978156]: Rwheel msg: 3340[0m
+[0m[ INFO] [1647860808.632085082]: Lwheel msg: 3124[0m
+[0m[ INFO] [1647860808.672061335]: [PID][pid_angular    ] setpoint:   3.1416, error:  -6.0310, p:  -6.0310, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860808.672188521]: wheel speeds: R:  107.07689, L:  107.15525[0m
+[0m[ INFO] [1647860808.731733216]: Line Follower: [644][0m
+[0m[ INFO] [1647860808.832016657]: Line Follower: [553][0m
+[0m[ INFO] [1647860808.932054266]: Line Follower: [600][0m
+[0m[ INFO] [1647860808.939500491]: Rwheel msg: 3343[0m
+[0m[ INFO] [1647860808.939769186]: Lwheel msg: 3126[0m
+[0m[ INFO] [1647860808.972150882]: [PID][pid_angular    ] setpoint:   3.1416, error:  -6.5765, p:  -6.5765, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860808.972368119]: wheel speeds: R:  106.37361, L:   70.89684[0m
+[0m[ INFO] [1647860809.032097396]: Line Follower: [619][0m
+[0m[ INFO] [1647860809.132132245]: Line Follower: [574][0m
+[0m[ INFO] [1647860809.232143761]: Line Follower: [613][0m
+[0m[ INFO] [1647860809.254720193]: Rwheel msg: 3346[0m
+[0m[ INFO] [1647860809.256052784]: Lwheel msg: 3129[0m
+[0m[ INFO] [1647860809.272122669]: [PID][pid_angular    ] setpoint:   3.1416, error:  -7.2143, p:  -7.2143, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860809.272318969]: wheel speeds: R:  103.83799, L:  103.45808[0m
+[0m[ INFO] [1647860809.332109756]: Line Follower: [608][0m
+[0m[ INFO] [1647860809.432269708]: Line Follower: [613][0m
+[0m[ INFO] [1647860809.532122579]: Line Follower: [619][0m
+[0m[ INFO] [1647860809.577101436]: Rwheel msg: 3349[0m
+[0m[ INFO] [1647860809.577322267]: Lwheel msg: 3132[0m
+[0m[ INFO] [1647860809.631966753]: Line Follower: [609][0m
+[0m[ INFO] [1647860809.672157587]: [PID][pid_angular    ] setpoint:   3.1416, error:  -8.0487, p:  -8.0487, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860809.672357949]: wheel speeds: R:  101.50616, L:  101.87038[0m
+[0m[ INFO] [1647860809.732013217]: Line Follower: [591][0m
+[0m[ INFO] [1647860809.832094784]: Line Follower: [587][0m
+[0m[ INFO] [1647860809.893817790]: Rwheel msg: 3351[0m
+[0m[ INFO] [1647860809.894061590]: Lwheel msg: 3134[0m
+[0m[ INFO] [1647860809.932256558]: Line Follower: [583][0m
+[0m[ INFO] [1647860809.972157603]: [PID][pid_angular    ] setpoint:   3.1416, error:  -8.4726, p:  -8.4726, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860809.972360049]: wheel speeds: R:   68.87767, L:   68.88097[0m
+[0m[ INFO] [1647860810.032126982]: Line Follower: [522][0m
+[0m[ INFO] [1647860810.132074176]: Line Follower: [569][0m
+[0m[ INFO] [1647860810.226020546]: Rwheel msg: 3354[0m
+[0m[ INFO] [1647860810.226322001]: Lwheel msg: 3137[0m
+[0m[ INFO] [1647860810.232208555]: Line Follower: [622][0m
+[0m[ INFO] [1647860810.273059902]: [PID][pid_angular    ] setpoint:   3.1416, error:  -9.0805, p:  -9.0805, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860810.273268025]: wheel speeds: R:   98.49554, L:   98.48820[0m
+[0m[ INFO] [1647860810.332042260]: Line Follower: [689][0m
+[0m[ INFO] [1647860810.432059401]: Line Follower: [679][0m
+[0m[ INFO] [1647860810.532015709]: Line Follower: [682][0m
+[0m[ INFO] [1647860810.542314039]: Rwheel msg: 3357[0m
+[0m[ INFO] [1647860810.542588412]: Lwheel msg: 3139[0m
+[0m[ INFO] [1647860810.572145970]: [PID][pid_angular    ] setpoint:   3.1416, error:  -9.6095, p:  -9.6095, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860810.572337947]: wheel speeds: R:  103.48909, L:   68.97059[0m
+[0m[ INFO] [1647860810.631991131]: Line Follower: [704][0m
+[0m[ INFO] [1647860810.731994105]: Line Follower: [740][0m
+[0m[ INFO] [1647860810.832010257]: Line Follower: [729][0m
+[0m[ INFO] [1647860810.860341786]: Rwheel msg: 3361[0m
+[0m[ INFO] [1647860810.860587148]: Lwheel msg: 3142[0m
+[0m[ INFO] [1647860810.872164111]: [PID][pid_angular    ] setpoint:   3.1416, error: -10.3484, p: -10.3484, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860810.872354214]: wheel speeds: R:  137.20203, L:  102.92916[0m
+[0m[ INFO] [1647860810.932006512]: Line Follower: [723][0m
+[0m[ INFO] [1647860811.032042351]: Line Follower: [705][0m
+[0m[ INFO] [1647860811.132236729]: Line Follower: [687][0m
+[0m[ INFO] [1647860811.192292096]: Lwheel msg: 3145[0m
+[0m[ INFO] [1647860811.192508865]: Rwheel msg: 3364[0m
+[0m[ INFO] [1647860811.232741156]: Line Follower: [665][0m
+[0m[ INFO] [1647860811.272173040]: [PID][pid_angular    ] setpoint:   3.1416, error: -11.1573, p: -11.1573, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860811.272406579]: wheel speeds: R:   98.53005, L:   98.64378[0m
+[0m[ INFO] [1647860811.332226011]: Line Follower: [702][0m
+[0m[ INFO] [1647860811.432059716]: Line Follower: [657][0m
+[0m[ INFO] [1647860811.521817067]: Rwheel msg: 3367[0m
+[0m[ INFO] [1647860811.522468623]: Lwheel msg: 3148[0m
+[0m[ INFO] [1647860811.532168731]: Line Follower: [657][0m
+[0m[ INFO] [1647860811.572155140]: [PID][pid_angular    ] setpoint:   3.1416, error: -11.7680, p: -11.7680, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860811.572350398]: wheel speeds: R:   99.36409, L:   99.11800[0m
+[0m[ INFO] [1647860811.632033217]: Line Follower: [657][0m
+[0m[ INFO] [1647860811.732023587]: Line Follower: [651][0m
+[0m[ INFO] [1647860811.832059270]: Line Follower: [656][0m
+[0m[ INFO] [1647860811.843154103]: Rwheel msg: 3369[0m
+[0m[ INFO] [1647860811.843406496]: Lwheel msg: 3150[0m
+[0m[ INFO] [1647860811.872167760]: [PID][pid_angular    ] setpoint:   3.1416, error: -12.1861, p: -12.1861, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860811.872351769]: wheel speeds: R:   67.88441, L:   67.98222[0m
+[0m[ INFO] [1647860811.932129951]: Line Follower: [652][0m
+[0m[ INFO] [1647860812.032060010]: Line Follower: [641][0m
+[0m[ INFO] [1647860812.132223816]: Line Follower: [703][0m
+[0m[ INFO] [1647860812.165134985]: Rwheel msg: 3372[0m
+[0m[ INFO] [1647860812.165339775]: Lwheel msg: 3153[0m
+[0m[ INFO] [1647860812.172099340]: [PID][pid_angular    ] setpoint:   3.1416, error: -12.8116, p: -12.8116, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860812.172284234]: wheel speeds: R:  101.64851, L:  101.65142[0m
+[0m[ INFO] [1647860812.232238821]: Line Follower: [716][0m
+[0m[ INFO] [1647860812.331986902]: Line Follower: [717][0m
+[0m[ INFO] [1647860812.432018261]: Line Follower: [725][0m
+[0m[ INFO] [1647860812.502289096]: Rwheel msg: 3375[0m
+[0m[ INFO] [1647860812.502497010]: Lwheel msg: 3156[0m
+[0m[ INFO] [1647860812.534981049]: Line Follower: [708][0m
+[0m[ INFO] [1647860812.572145716]: [PID][pid_angular    ] setpoint:   3.1416, error: -13.6080, p: -13.6080, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860812.572334672]: wheel speeds: R:   97.06439, L:   97.06158[0m
+[0m[ INFO] [1647860812.632106553]: Line Follower: [686][0m
+[0m[ INFO] [1647860812.732037184]: Line Follower: [736][0m
+[0m[ INFO] [1647860812.832016148]: Line Follower: [696][0m
+[0m[ INFO] [1647860812.849553102]: Rwheel msg: 3379[0m
+[0m[ INFO] [1647860812.849820599]: Lwheel msg: 3159[0m
+[0m[ INFO] [1647860812.872146774]: [PID][pid_angular    ] setpoint:   3.1416, error: -14.2845, p: -14.2845, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860812.872345418]: wheel speeds: R:  125.64713, L:   94.20653[0m
+[0m[ INFO] [1647860812.932012977]: Line Follower: [708][0m
+[0m[ INFO] [1647860813.032094804]: Line Follower: [690][0m
+[0m[ INFO] [1647860813.132077570]: Line Follower: [691][0m
+[0m[ INFO] [1647860813.166643462]: Rwheel msg: 3382[0m
+[0m[ INFO] [1647860813.166896845]: Lwheel msg: 3162[0m
+[0m[ INFO] [1647860813.172165228]: [PID][pid_angular    ] setpoint:   3.1416, error: -14.9197, p: -14.9197, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860813.172357726]: wheel speeds: R:  103.20403, L:  103.22655[0m
+[0m[ INFO] [1647860813.232010076]: Line Follower: [599][0m
+[0m[ INFO] [1647860813.331993884]: Line Follower: [531][0m
+[0m[ INFO] [1647860813.432217377]: Line Follower: [490][0m
+[0m[ INFO] [1647860813.494125486]: Rwheel msg: 3385[0m
+[0m[ INFO] [1647860813.494320015]: Lwheel msg: 3165[0m
+[0m[ INFO] [1647860813.532509202]: Line Follower: [509][0m
+[0m[ INFO] [1647860813.572169781]: [PID][pid_angular    ] setpoint:   3.1416, error: -15.7397, p: -15.7397, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860813.572368894]: wheel speeds: R:   99.93128, L:   99.94531[0m
+[0m[ INFO] [1647860813.632279940]: Line Follower: [501][0m
+[0m[ INFO] [1647860813.732055833]: Line Follower: [502][0m
+[0m[ INFO] [1647860813.820416376]: Rwheel msg: 3388[0m
+[0m[ INFO] [1647860813.820685956]: Lwheel msg: 3167[0m
+[0m[ INFO] [1647860813.832600676]: Line Follower: [522][0m
+[0m[ INFO] [1647860813.872161152]: [PID][pid_angular    ] setpoint:   3.1416, error: -16.2539, p: -16.2539, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860813.872363754]: wheel speeds: R:  100.28617, L:   66.83322[0m
+[0m[ INFO] [1647860813.932358862]: Line Follower: [538][0m
+[0m[ INFO] [1647860814.032043870]: Line Follower: [555][0m
+[0m[ INFO] [1647860814.131980908]: Line Follower: [575][0m
+[0m[ INFO] [1647860814.161481383]: Rwheel msg: 3391[0m
+[0m[ INFO] [1647860814.161716120]: Lwheel msg: 3170[0m
+[0m[ INFO] [1647860814.172122679]: [PID][pid_angular    ] setpoint:   3.1416, error: -16.8444, p: -16.8444, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860814.172356010]: wheel speeds: R:   95.95474, L:   95.97974[0m
+[0m[ INFO] [1647860814.231958986]: Line Follower: [580][0m
+[0m[ INFO] [1647860814.332011283]: Line Follower: [603][0m
+[0m[ INFO] [1647860814.431980872]: Line Follower: [619][0m
+[0m[ INFO] [1647860814.483117634]: Lwheel msg: 3173[0m
+[0m[ INFO] [1647860814.483378360]: Rwheel msg: 3394[0m
+[0m[ INFO] [1647860814.531948274]: Line Follower: [609][0m
+[0m[ INFO] [1647860814.572148847]: [PID][pid_angular    ] setpoint:   3.1416, error: -17.6792, p: -17.6792, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860814.572335251]: wheel speeds: R:  101.67686, L:  101.80240[0m
+[0m[ INFO] [1647860814.633061862]: Line Follower: [647][0m
+[0m[ INFO] [1647860814.731945629]: Line Follower: [651][0m
+[0m[ INFO] [1647860814.796825217]: Rwheel msg: 3397[0m
+[0m[ INFO] [1647860814.797097870]: Lwheel msg: 3176[0m
+[0m[ INFO] [1647860814.832041258]: Line Follower: [668][0m
+[0m[ INFO] [1647860814.872158238]: [PID][pid_angular    ] setpoint:   3.1416, error: -18.3212, p: -18.3212, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860814.872346882]: wheel speeds: R:  104.38798, L:  104.24155[0m
+[0m[ INFO] [1647860814.932007514]: Line Follower: [639][0m
+[0m[ INFO] [1647860815.031956166]: Line Follower: [657][0m
+[0m[ INFO] [1647860815.130144628]: Rwheel msg: 3401[0m
+[0m[ INFO] [1647860815.131040243]: Lwheel msg: 3179[0m
+[0m[ INFO] [1647860815.133153711]: Line Follower: [689][0m
+[0m[ INFO] [1647860815.172147422]: [PID][pid_angular    ] setpoint:   3.1416, error: -19.0255, p: -19.0255, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860815.172334764]: wheel speeds: R:  130.90384, L:   97.99086[0m
+[0m[ INFO] [1647860815.231995500]: Line Follower: [652][0m
+[0m[ INFO] [1647860815.331958422]: Line Follower: [702][0m
+[0m[ INFO] [1647860815.432037646]: Line Follower: [666][0m
+[0m[ INFO] [1647860815.455480423]: Rwheel msg: 3403[0m
+[0m[ INFO] [1647860815.455701046]: Lwheel msg: 3181[0m
+[0m[ INFO] [1647860815.472138845]: [PID][pid_angular    ] setpoint:   3.1416, error: -19.4386, p: -19.4386, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860815.472315041]: wheel speeds: R:   67.06056, L:   67.20507[0m
+[0m[ INFO] [1647860815.531948069]: Line Follower: [670][0m
+[0m[ INFO] [1647860815.632073542]: Line Follower: [667][0m
+[0m[ INFO] [1647860815.732027610]: Line Follower: [672][0m
+[0m[ INFO] [1647860815.775911530]: Rwheel msg: 3406[0m
+[0m[ INFO] [1647860815.776723709]: Lwheel msg: 3184[0m
+[0m[ INFO] [1647860815.832402768]: Line Follower: [682][0m
+[0m[ INFO] [1647860815.872163033]: [PID][pid_angular    ] setpoint:   3.1416, error: -20.2757, p: -20.2757, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860815.872369021]: wheel speeds: R:  102.11997, L:  101.92606[0m
+[0m[ INFO] [1647860815.931996944]: Line Follower: [701][0m
+[0m[ INFO] [1647860816.032022523]: Line Follower: [719][0m
+[0m[ INFO] [1647860816.110141244]: Rwheel msg: 3409[0m
+[0m[ INFO] [1647860816.110365513]: Lwheel msg: 3186[0m
+[0m[ INFO] [1647860816.133187881]: Line Follower: [745][0m
+[0m[ INFO] [1647860816.172153154]: [PID][pid_angular    ] setpoint:   3.1416, error: -20.7782, p: -20.7782, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860816.172354298]: wheel speeds: R:   97.91718, L:   65.39791[0m
+[0m[ INFO] [1647860816.231929722]: Line Follower: [759][0m
+[0m[ INFO] [1647860816.331971081]: Line Follower: [740][0m
+[0m[ INFO] [1647860816.431972649]: Line Follower: [733][0m
+[0m[ INFO] [1647860816.447671289]: Rwheel msg: 3412[0m
+[0m[ INFO] [1647860816.447884672]: Lwheel msg: 3189[0m
+[0m[ INFO] [1647860816.472164004]: [PID][pid_angular    ] setpoint:   3.1416, error: -21.3749, p: -21.3749, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860816.472355668]: wheel speeds: R:   96.95136, L:   96.95132[0m
+[0m[ INFO] [1647860816.532002446]: Line Follower: [703][0m
+[0m[ INFO] [1647860816.631931827]: Line Follower: [685][0m
+[0m[ INFO] [1647860816.731966051]: Line Follower: [663][0m
+[0m[ INFO] [1647860816.768884940]: Lwheel msg: 3191[0m
+[0m[ INFO] [1647860816.769372018]: Rwheel msg: 3415[0m
+[0m[ INFO] [1647860816.772111469]: [PID][pid_angular    ] setpoint:   3.1416, error: -21.8970, p: -21.8970, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860816.772288081]: wheel speeds: R:  101.73954, L:   67.95714[0m
+[0m[ INFO] [1647860816.831971109]: Line Follower: [699][0m
+[0m[ INFO] [1647860816.933090842]: Line Follower: [696][0m
+[0m[ INFO] [1647860817.031955703]: Line Follower: [657][0m
+[0m[ INFO] [1647860817.096815188]: Rwheel msg: 3418[0m
+[0m[ INFO] [1647860817.097071852]: Lwheel msg: 3195[0m
+[0m[ INFO] [1647860817.132561432]: Line Follower: [580][0m
+[0m[ INFO] [1647860817.172153105]: [PID][pid_angular    ] setpoint:   3.1416, error: -22.8524, p: -22.8524, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860817.172348311]: wheel speeds: R:   99.92548, L:  132.95468[0m
+[0m[ INFO] [1647860817.231988006]: Line Follower: [627][0m
+[0m[ INFO] [1647860817.331972699]: Line Follower: [650][0m
+[0m[ INFO] [1647860817.423605656]: Rwheel msg: 3421[0m
+[0m[ INFO] [1647860817.424478772]: Lwheel msg: 3197[0m
+[0m[ INFO] [1647860817.432010829]: Line Follower: [673][0m
+[0m[ INFO] [1647860817.472236506]: [PID][pid_angular    ] setpoint:   3.1416, error: -23.3657, p: -23.3657, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860817.472432858]: wheel speeds: R:  100.14416, L:   66.63779[0m
+[0m[ INFO] [1647860817.532020470]: Line Follower: [662][0m
+[0m[ INFO] [1647860817.632000684]: Line Follower: [667][0m
+[0m[ INFO] [1647860817.732034647]: Line Follower: [683][0m
+[0m[ INFO] [1647860817.747056211]: Rwheel msg: 3424[0m
+[0m[ INFO] [1647860817.747990263]: Lwheel msg: 3200[0m
+[0m[ INFO] [1647860817.772153867]: [PID][pid_angular    ] setpoint:   3.1416, error: -23.9881, p: -23.9881, i: -0.00000, d:   0.0000 -> control:  -0.3000[0m
+[0m[ INFO] [1647860817.772356938]: wheel speeds: R:  101.17575, L:  101.15355[0m
+[0m[ INFO] [1647860817.831951008]: Line Follower: [721][0m
+[0m[ INFO] [1647860817.931978149]: Line Follower: [726][0m
+[0m[ INFO] [1647860818.032016591]: Line Follower: [753][0m
+[0m[ INFO] [1647860818.063814022]: Rwheel msg: 3426[0m
+[0m[ INFO] [1647860818.064024280]: Lwheel msg: 3202[0m
+[0m[ INFO] [1647860818.131939775]: Line Follower: [752][0m
+[0m[ INFO] [1647860818.232033477]: Line Follower: [749][0m
+[0m[ INFO] [1647860818.332057649]: Line Follower: [729][0m
+[0m[ INFO] [1647860818.376019902]: Rwheel msg: 3429[0m
+[0m[ INFO] [1647860818.376944528]: Lwheel msg: 3205[0m
 make[1]: Leaving directory '/home/pi/catkin_ws'
