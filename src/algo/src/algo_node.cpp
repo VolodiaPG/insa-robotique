@@ -27,6 +27,8 @@
 #define FREQUENCY 10         // Hz
 #define FREQUENCY_ENCODERS 8 // Hz
 
+#define US_HEAD_ROTATION_INC 0.1
+
 #define ASYNC_LOOP
 
 // STATICS
@@ -94,6 +96,14 @@ Semaphore semaphore_wait_first_for_encoders(0);
 
 int16_t line_follower[LINE_FOLLOWER_LENGTH];
 
+struct robot_t
+{
+  float angular_speed;
+  float linear_speed;
+  float us_head_position;
+  float angular_position;
+} Robot;
+
 struct PID_t
 {
   float kp, ki, kd;
@@ -104,6 +114,11 @@ struct PID_t
   std::string control_type;
 } pid_angular_linear, pid_angular, pid_linear;
 
+struct depth_t
+{
+  std::mutex mutex;
+  int16_t depth;
+} depth;
 struct encoder_callback_t
 {
   uint16_t init_count = 1;
@@ -123,6 +138,7 @@ union robot_orders_t
 {
   robot_speed_control_t advance_speed;
   float turning_position;
+  float us_head_position;
 };
 
 struct robot_controls_t
@@ -144,6 +160,13 @@ struct robot_controls_t
   {                                                    \
     STRUCT_NAME->action = tagrobot_actions_t::TURNING; \
     STRUCT_NAME->order.turning_position = ANGLE;       \
+  } while (0)
+
+#define ROBOT_US_SENSE(STRUCT_NAME, ANGLE)                \
+  do                                                      \
+  {                                                       \
+    STRUCT_NAME->action = tagrobot_actions_t::US_SENSING; \
+    STRUCT_NAME->order.us_head_position = ANGLE;          \
   } while (0)
 
 bool get_l_r_encoders(encoder_callback_t *enc_l, encoder_callback_t *enc_r, float *speed_r, float *speed_l)
@@ -185,7 +208,7 @@ void encoder_callback(encoder_callback_t *enc, const std_msgs::Int16::ConstPtr &
   enc->mutex.unlock();
 }
 
-void lwheelCallback(const std_msgs::Int16::ConstPtr &msg)
+void lwheel_callback(const std_msgs::Int16::ConstPtr &msg)
 {
   static int16_t last = msg->data;
 
@@ -196,7 +219,7 @@ void lwheelCallback(const std_msgs::Int16::ConstPtr &msg)
   last = msg->data;
 }
 
-void rwheelCallback(const std_msgs::Int16::ConstPtr &msg)
+void rwheel_callback(const std_msgs::Int16::ConstPtr &msg)
 {
   static int16_t last = msg->data;
 
@@ -207,12 +230,20 @@ void rwheelCallback(const std_msgs::Int16::ConstPtr &msg)
   last = msg->data;
 }
 
-void lineFollowerCallback(const std_msgs::Int16MultiArray::ConstPtr &msg)
+void line_follower_callback(const std_msgs::Int16MultiArray::ConstPtr &msg)
 {
-  ROS_INFO("Line Follower: [%d]", msg->data[0]);
+  ROS_INFO("Line Follower @0: %d", msg->data[0]);
   mutex_line_follower.lock();
   std::copy(std::begin(msg->data), std::end(msg->data), std::begin(line_follower));
   mutex_line_follower.unlock();
+}
+
+void ultrasonic_callback(const std_msgs::Int16::ConstPtr &msg)
+{
+  depth.mutex.lock();
+  depth.depth = msg->data;
+  depth.mutex.unlock();
+  ROS_INFO("Ultrasonic depth sensed: %d", msg->data);
 }
 
 float make_between_control_bounds(PID_t *pid, float *value)
@@ -297,7 +328,7 @@ float line_follower_sum(const int16_t line_follower[LINE_FOLLOWER_LENGTH], const
   return sum;
 }
 
-void line_following(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
+void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
 {
   int16_t local_line_follower[LINE_FOLLOWER_LENGTH];
 
@@ -329,13 +360,65 @@ void line_following(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
   return;
 }
 
+void process_depth_sensing(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
+{
+  depth.mutex.lock();
+  int16_t local_depth = depth.depth;
+  depth.mutex.unlock();
+
+  if (Robot.us_head_position == 0)
+  {
+    // scan from left to right
+    ROBOT_US_SENSE(controls, -M_PI_2);
+    return;
+  }
+  else if (Robot.us_head_position >= M_PI_2)
+  {
+    ROS_WARN("No openings found, retrying");
+    ROBOT_US_SENSE(controls, -M_PI_2);
+    return;
+  }
+
+  if (local_depth > 20)
+  {
+    // it's an opening
+    Robot.angular_position = 0;
+    ROBOT_TURN(controls, Robot.us_head_position);
+    *mode = tagrobot_decision_mode_t::LINE_ACQUISITION;
+    return;
+  }
+
+  ROBOT_US_SENSE(controls, Robot.angular_position + US_HEAD_ROTATION_INC);
+}
+
+void process_line_acquisition(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
+{
+  int16_t local_line_follower[LINE_FOLLOWER_LENGTH];
+
+  mutex_line_follower.lock();
+  std::copy(std::begin(line_follower), std::end(line_follower), std::begin(local_line_follower));
+  mutex_line_follower.unlock();
+
+  if (line_follower_sum(local_line_follower, 1, 1, 1, 1, 1) > 0)
+  {
+    *mode = tagrobot_decision_mode_t::LINE_FOLLOWING;
+  }
+  ROBOT_ADVANCE(controls, MAX_LINE_FOLLOWING_SPEED, 0);
+}
+
 robot_controls_t decision_state_machine(tagrobot_decision_mode_t *mode)
 {
   robot_controls_t ret;
   switch (*mode)
   {
   case tagrobot_decision_mode_t::LINE_FOLLOWING:
-    line_following(mode, &ret);
+    process_line_following(mode, &ret);
+    break;
+  case tagrobot_decision_mode_t::DEPTH_SENSING:
+    process_depth_sensing(mode, &ret);
+    break;
+  case tagrobot_decision_mode_t::LINE_ACQUISITION:
+    process_line_acquisition(mode, &ret);
     break;
   default:
     ROS_ERROR("State not implemented");
@@ -345,7 +428,7 @@ robot_controls_t decision_state_machine(tagrobot_decision_mode_t *mode)
 
 int main(int argc, char **argv)
 {
-  if (argc != 11)
+  if (argc != 12)
   {
     ROS_ERROR("incorrect number of parameters. Got %d", argc);
     return 1;
@@ -368,9 +451,12 @@ int main(int argc, char **argv)
 #endif
 
   ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
-  ros::Subscriber lwheel_sub = n.subscribe("/lwheel", 1, lwheelCallback, ros::TransportHints().tcpNoDelay());
-  ros::Subscriber rwheel_sub = n.subscribe("/rwheel", 1, rwheelCallback, ros::TransportHints().tcpNoDelay());
-  ros::Subscriber line_follower_sub = n.subscribe("/line_follower", 1, lineFollowerCallback, ros::TransportHints().tcpNoDelay());
+  ros::Publisher cmd_us_pub = n.advertise<std_msgs::Int16>("/cmd_us", 1);
+
+  ros::Subscriber lwheel_sub = n.subscribe("/lwheel", 1, lwheel_callback, ros::TransportHints().tcpNoDelay());
+  ros::Subscriber rwheel_sub = n.subscribe("/rwheel", 1, rwheel_callback, ros::TransportHints().tcpNoDelay());
+  ros::Subscriber line_follower_sub = n.subscribe("/line_follower", 1, line_follower_callback, ros::TransportHints().tcpNoDelay());
+  ros::Subscriber us_sub = n.subscribe("/us_dist", 1, ultrasonic_callback, ros::TransportHints().tcpNoDelay());
 
   ros::Rate loop_rate(FREQUENCY);
 
@@ -393,7 +479,7 @@ int main(int argc, char **argv)
   ros::spinOnce(); // if synchronous, all callbacks are executed when calling `spinOnce`, so all 2 encoders ahve their first value then
 #endif
 
-  float angular_speed = 0, linear_speed = 0, last_angular_position = 0;
+  float last_angular_position = 0;
 
   tagrobot_decision_mode_t robot_decision = tagrobot_decision_mode_t::LINE_FOLLOWING, last_decision = robot_decision;
 
@@ -409,16 +495,33 @@ int main(int argc, char **argv)
       const float speed_linear_r = get_linear_speed_from_ticks(speed_ticks_r);
       const float speed_linear_l = get_linear_speed_from_ticks(speed_ticks_l);
 
+      // Robot controls
       switch (robot_control.action)
       {
       case tagrobot_actions_t::ADVANCING:
-        angular_speed = compute_pid(&pid_angular_linear, robot_control.order.advance_speed.angular, get_angular_speed(speed_linear_r, speed_linear_l));
-        linear_speed = compute_pid(&pid_linear, robot_control.order.advance_speed.linear, get_linear_speed(speed_linear_r, speed_linear_l));
+        Robot.angular_speed = compute_pid(&pid_angular_linear, robot_control.order.advance_speed.angular, get_angular_speed(speed_linear_r, speed_linear_l));
+        Robot.linear_speed = compute_pid(&pid_linear, robot_control.order.advance_speed.linear, get_linear_speed(speed_linear_r, speed_linear_l));
         break;
       case tagrobot_actions_t::TURNING:
         last_angular_position = get_angular_position(speed_linear_r, speed_linear_l, last_angular_position);
-        angular_speed = compute_pid(&pid_angular, robot_control.order.turning_position, last_angular_position);
-        linear_speed = 0;
+        Robot.angular_speed = compute_pid(&pid_angular, robot_control.order.turning_position, last_angular_position);
+        Robot.linear_speed = 0;
+        break;
+      case tagrobot_actions_t::US_SENSING:
+        Robot.linear_speed = 0;
+        Robot.angular_speed = 0;
+        break;
+      }
+
+      // Head controls
+      switch (robot_control.action)
+      {
+      case tagrobot_actions_t::ADVANCING:
+      case tagrobot_actions_t::TURNING:
+        Robot.us_head_position = 0;
+        break;
+      case tagrobot_actions_t::US_SENSING:
+        Robot.us_head_position = robot_control.order.us_head_position;
         break;
       }
 
@@ -432,31 +535,35 @@ int main(int argc, char **argv)
       }
     }
 
-    ROS_INFO("Controls: linear_speed: % 10.5f, angular_speed: % 10.5f", linear_speed, angular_speed);
+    ROS_INFO("Controls: linear_speed: % 10.5f, angular_speed: % 10.5f, angular_position: % 10.5f, head position: % 10.5f", Robot.linear_speed, Robot.angular_speed, Robot.angular_position, Robot.us_head_position);
 
     geometry_msgs::Twist vel;
-    vel.linear.x = linear_speed;
-    vel.angular.z = angular_speed;
-
+    vel.linear.x = Robot.linear_speed;
+    vel.angular.z = Robot.angular_speed;
     cmd_vel_pub.publish(vel);
 
+    std_msgs::Int16 us_pos;
+    us_pos.data = atoi(argv[11]);
+    // us_pos.data = (int16_t)Robot.us_head_position;
+    cmd_us_pub.publish(us_pos);
+
     std::thread([&] {
-      if (angular_speed > 0)
+      if (Robot.angular_speed > 0)
       {
         led_l_on.call(srv);
       }
-      else if (angular_speed < 0)
+      else if (Robot.angular_speed < 0)
       {
         led_r_on.call(srv);
       }
     }).detach();
 
     std::thread([&] {
-      if (angular_speed > 0.0)
+      if (Robot.angular_speed > 0.0)
       {
         led_r_off.call(srv);
       }
-      else if (angular_speed < 0.0)
+      else if (Robot.angular_speed < 0.0)
       {
         led_l_off.call(srv);
       }
