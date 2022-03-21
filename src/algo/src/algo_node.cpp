@@ -26,9 +26,10 @@
 
 // STATICS
 
-#define WHEEL_DIAMETER 62.5            // mm
-#define PULSE_BY_ROTATION 18           // pulses
-#define DISTANCE_WHEEL_TO_CENTER 48.75 // mm
+#define WHEEL_DIAMETER 62.5                                  // mm
+#define PULSE_BY_ROTATION 18                                 // pulses
+#define DISTANCE_WHEEL_TO_CENTER 48.75                       // mm
+#define DISTANCE_WHEEL_TO_WHEEL DISTANCE_WHEEL_TO_CENTER * 2 // mm
 
 class Semaphore
 {
@@ -80,9 +81,9 @@ struct PID_t
 struct encoder_callback_t
 {
   uint16_t init_count = 1;
-  int16_t ticks = 0;
   std::mutex mutex;
   bool new_value = false;
+  float tick_speed;
 } encoder_l, encoder_r;
 
 enum robot_actions_t
@@ -91,15 +92,13 @@ enum robot_actions_t
   ADVANCING
 };
 
-bool get_l_r_encoders(encoder_callback_t *enc_l, encoder_callback_t *enc_r, int16_t *diff_r_minus_l)
+bool get_l_r_encoders(encoder_callback_t *enc_l, encoder_callback_t *enc_r, float *speed_r, float *speed_l)
 {
   enc_l->mutex.lock();
   enc_r->mutex.lock();
 
-  // uniformize to follow only the diff, to avoid overflow
-  // const int16_t min = std::min(enc_l->ticks, enc_r->ticks);
-  // enc_l->ticks -= min;
-  // enc_r->ticks -= min;
+  *speed_r = enc_r->tick_speed;
+  *speed_l = enc_l->tick_speed;
 
   const bool new_value = enc_l->new_value && enc_r->new_value;
 
@@ -109,41 +108,17 @@ bool get_l_r_encoders(encoder_callback_t *enc_l, encoder_callback_t *enc_r, int1
     enc_r->new_value = false;
   }
 
-  *diff_r_minus_l = enc_r->ticks - enc_l->ticks;
-
   enc_r->mutex.unlock();
   enc_l->mutex.unlock();
 
   return new_value;
 }
 
-void init_l_r_encoders(encoder_callback_t *enc_l, encoder_callback_t *enc_r)
-{
-  enc_l->mutex.lock();
-  enc_r->mutex.lock();
-
-  enc_r->ticks = 0;
-  enc_l->ticks = 0;
-
-  enc_r->mutex.unlock();
-  enc_l->mutex.unlock();
-}
-
 void encoder_callback(encoder_callback_t *enc, const std_msgs::Int16::ConstPtr &msg, const int16_t last)
 {
   enc->mutex.lock();
 
-  // if (msg->data < last)
-  // {
-  //   // overflow of int16_t
-  //   const int16_t diff_max_buffer = std::numeric_limits<int16_t>::max() - last;
-  //   enc->ticks += diff_max_buffer + msg->data;
-  // }
-  // else
-  // {
-  // }
-
-  enc->ticks += msg->data - last;
+  enc->tick_speed = msg->data - last;
   enc->new_value = true;
 
   if (enc->init_count-- > 0)
@@ -163,8 +138,6 @@ void lwheelCallback(const std_msgs::Int16::ConstPtr &msg)
   encoder_callback(&encoder_l, msg, last);
 
   last = msg->data;
-
-  ROS_INFO("Lwheel ticks: %d", encoder_l.ticks);
 }
 
 void rwheelCallback(const std_msgs::Int16::ConstPtr &msg)
@@ -176,8 +149,6 @@ void rwheelCallback(const std_msgs::Int16::ConstPtr &msg)
   encoder_callback(&encoder_r, msg, last);
 
   last = msg->data;
-
-  ROS_INFO("Rwheel ticks: %d", encoder_r.ticks);
 }
 
 void lineFollowerCallback(const std_msgs::Int16MultiArray::ConstPtr &msg)
@@ -223,29 +194,29 @@ float compute_pid(PID_t *pid, float setpoint, float sensed_output)
   return control_signal;
 }
 
-inline float pulses_to_linear_distance(float pulses)
+inline float get_linear_speed_from_ticks(const float ticks)
 {
-  return pulses * (2 * M_PI / PULSE_BY_ROTATION) * WHEEL_DIAMETER / 2.0; // mm
+  return ticks * (2 * M_PI / PULSE_BY_ROTATION) * WHEEL_DIAMETER / 2.0;
 }
 
-// inline float linear_distance_from_differential_wheel_distances(const int16_t lwheel, const int16_t rwheel)
-// {
-//   return pulses_to_linear_distance(std::max(rwheel, lwheel)); // mm.s-1
-// }
-
-inline float angular_distance_from_differential_wheel_distances(const int16_t diff_r_minus_l)
+inline float get_angular_speed(const float linear_speed_r, const float linear_speed_l)
 {
-  return pulses_to_linear_distance(diff_r_minus_l) / DISTANCE_WHEEL_TO_CENTER; // rad
+  return (linear_speed_r - linear_speed_l) / DISTANCE_WHEEL_TO_WHEEL;
 }
 
-inline void accelerate(const float setpoint, const float time_sec, float *actual_speed, float *time_left)
+inline float get_linear_speed(const float linear_speed_r, const float linear_speed_l)
 {
-  if (*time_left > 0)
+  return (linear_speed_r - linear_speed_l) / 2.0;
+}
+
+inline float get_radius_from_icc(const float linear_speed_r, const float linear_speed_l)
+{
+  if (linear_speed_l == linear_speed_r)
   {
-    const float steps = setpoint / time_sec / FREQUENCY;
-    *time_left -= 1.0 / FREQUENCY;
-    *actual_speed += steps;
+    return std::numeric_limits<float>::max();
   }
+
+  return DISTANCE_WHEEL_TO_WHEEL / 2.0 * (linear_speed_r + linear_speed_l) / (linear_speed_r - linear_speed_l);
 }
 
 int main(int argc, char **argv)
@@ -310,10 +281,7 @@ int main(int argc, char **argv)
 
   float angular_speed = 0, linear_speed = 0;
 
-  // float acceleration_time = 2.0; //sec
-  // float time_left = acceleration_time;
-
-  robot_actions_t current_action = robot_actions_t::TURNING;
+  robot_actions_t current_action = robot_actions_t::ADVANCING;
 
   while (ros::ok() && (!finite_cyle || running_iterations-- > 0))
   {
@@ -321,36 +289,28 @@ int main(int argc, char **argv)
     // std::copy(std::begin(line_follower), std::end(line_follower), std::begin(local_line_follower));
     // mutex_line_follower.unlock();
 
-    int16_t diff_r_minus_l;
-    const bool new_enc_value = get_l_r_encoders(&encoder_l, &encoder_r, &diff_r_minus_l);
+    float speed_ticks_l, speed_ticks_r;
 
-    float target_angle = 0;
-
-    // if (running_iterations < FREQUENCY * 2)
-    // {
-    //   target_angle = M_PI;
-    //   linear_speed = 0;
-    //   current_action = TURNING;
-    // }
-
+    const bool new_enc_value = get_l_r_encoders(&encoder_l, &encoder_r, &speed_ticks_r, &speed_ticks_l);
     if (new_enc_value)
     {
       PID_t *chosen_pid;
+
+      const float speed_linear_r = get_linear_speed_from_ticks(speed_ticks_r);
+      const float speed_linear_l = get_linear_speed_from_ticks(speed_ticks_l);
+
       switch (current_action)
       {
       case robot_actions_t::ADVANCING:
         chosen_pid = &pid_angular_linear;
+        angular_speed = compute_pid(chosen_pid, 0, get_angular_speed(speed_linear_r, speed_linear_l));
         break;
       case robot_actions_t::TURNING:
         chosen_pid = &pid_angular;
         break;
       }
-      // only change the value when the new info are there
-      const float diff_angular_distance = angular_distance_from_differential_wheel_distances(diff_r_minus_l);
-      ROS_INFO("angular diff distance: %f", diff_angular_distance);
 
-      angular_speed = compute_pid(chosen_pid, MPI, diff_angular_distance);
-      ROS_INFO("angular speed: %f", angular_speed);
+      ROS_INFO("wheel speeds: R: % 10.5f, L: % 10.5f", speed_linear_r, speed_linear_l);
     }
 
     // const float linear_distance_from_last_sensed = linear_distance_from_differential_wheel_distances(
@@ -380,9 +340,8 @@ int main(int argc, char **argv)
      */
 
     // accelerate(0.5, acceleration_time, &linear_speed, &time_left);
-    ROS_INFO("linear speed: %f", linear_speed);
     geometry_msgs::Twist vel;
-    vel.linear.x = linear_speed;
+    vel.linear.x = 0.5;
     vel.linear.y = 0.0;
     vel.linear.z = 0.0;
     vel.angular.x = 0.0;
@@ -419,7 +378,6 @@ int main(int argc, char **argv)
       }
     }).detach();
 
-    // ros::spinOnce();
     const bool met = loop_rate.sleep();
 
     if (!met)
@@ -431,9 +389,6 @@ int main(int argc, char **argv)
   led_r_on.call(srv);
   led_l_on.call(srv);
 
-  /**
-     * This is a message object. You stuff it with data, and then publish it.
-     */
   geometry_msgs::Twist vel;
   vel.linear.x = 0;
   vel.linear.y = 0.0;
@@ -442,12 +397,6 @@ int main(int argc, char **argv)
   vel.angular.y = 0.0;
   vel.angular.z = 0;
 
-  /**
-     * The publish() function is how you send messages. The parameter
-     * is the message object. The type of this object must agree with the type
-     * given as a template parameter to the advertise<>() call, as was done
-     * in the constructor above.
-     */
   cmd_vel_pub.publish(vel);
 
   return 0;
