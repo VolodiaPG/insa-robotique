@@ -1,0 +1,8 @@
+prefix=/home/pi/catkin_ws/devel
+
+Name: algo
+Description: Description of algo
+Version: 0.0.0
+Cflags: -I/home/pi/catkin_ws/src/algo/include
+Libs: -L/home/pi/catkin_ws/devel/lib 
+Requires: 

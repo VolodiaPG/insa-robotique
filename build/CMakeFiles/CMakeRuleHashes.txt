@@ -1,0 +1,10 @@
+# Hashes of file build rules.
+e4450b19429c9e42746f5a0bf8dc29d5 /home/pi/catkin_ws/devel/include/ropigo/SimpleWrite.h
+d1a0f96b8edd2edfeb2bbbfc9a76a61f /home/pi/catkin_ws/devel/lib/python2.7/dist-packages/ropigo/srv/_SimpleWrite.py
+59d80054c60217362992443367518121 /home/pi/catkin_ws/devel/lib/python2.7/dist-packages/ropigo/srv/__init__.py
+cc9cea8d6ad401925ef9a3173aa44724 /home/pi/catkin_ws/devel/share/common-lisp/ros/ropigo/srv/SimpleWrite.lisp
+b72ebc4aea148fd76a47914d708f6a9c CMakeFiles/clean_test_results
+0a99d845a8cd4a8785e5586f0c2a6c60 ros-node-ropigo/CMakeFiles/_ropigo_generate_messages_check_deps_SimpleWrite
+6c143aae616828dc65b69bc80dbde48e ros-node-ropigo/CMakeFiles/ropigo_generate_messages_cpp
+6c143aae616828dc65b69bc80dbde48e ros-node-ropigo/CMakeFiles/ropigo_generate_messages_lisp
+6c143aae616828dc65b69bc80dbde48e ros-node-ropigo/CMakeFiles/ropigo_generate_messages_py

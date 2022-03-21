@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libgopigo.so -o /home/pi/catkin_ws/devel/lib/libgopigo.so CMakeFiles/gopigo.dir/src/gopigo.c.o 

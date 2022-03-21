@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pi/catkin_ws/src/catkin-libgopigo/include/gopigo.h
+stdio.h
+-
+stdlib.h
+-
+linux/i2c-dev.h
+-
+fcntl.h
+-
+string.h
+-
+sys/ioctl.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+unistd.h
+-
+errno.h
+-
+stdbool.h
+-
+
+/home/pi/catkin_ws/src/catkin-libgopigo/src/gopigo.c
+gopigo.h
+/home/pi/catkin_ws/src/catkin-libgopigo/src/gopigo.h
+
