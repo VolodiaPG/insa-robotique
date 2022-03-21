@@ -13,8 +13,8 @@
 #define LINE_FOLLOWER_LENGTH 5
 #define IR_THREASHOLD 400
 
-#define MAX_LINEAR_SPEED 2.0f
-#define MIN_LINEAR_SPEED -2.0f
+#define MAX_LINEAR_SPEED 0.8f
+#define MIN_LINEAR_SPEED -0.8f
 
 #define MAX_ANGULAR_LINEAR_SPEED 0.3f
 #define MIN_ANGULAR_LINEAR_SPEED -0.3f
@@ -22,7 +22,10 @@
 #define MAX_ANGULAR_SPEED 1.0f
 #define MIN_ANGULAR_SPEED -1.0f
 
-#define FREQUENCY 10 // Hz
+#define FREQUENCY 10         // Hz
+#define FREQUENCY_ENCODERS 8 // Hz
+
+#define ASYNC_LOOP
 
 // STATICS
 
@@ -84,6 +87,7 @@ struct encoder_callback_t
   std::mutex mutex;
   bool new_value = false;
   float tick_speed;
+  std::chrono::_V2::steady_clock::time_point last_updated_instant;
 } encoder_l, encoder_r;
 
 enum robot_actions_t
@@ -116,10 +120,12 @@ bool get_l_r_encoders(encoder_callback_t *enc_l, encoder_callback_t *enc_r, floa
 
 void encoder_callback(encoder_callback_t *enc, const std_msgs::Int16::ConstPtr &msg, const int16_t last)
 {
+  auto instant = std::chrono::steady_clock::now();
   enc->mutex.lock();
 
-  enc->tick_speed = msg->data - last;
+  enc->tick_speed = (float)(msg->data - last) * FREQUENCY_ENCODERS; // / (std::chrono::duration<float>(instant - enc->last_updated_instant).count());
   enc->new_value = true;
+  enc->last_updated_instant = instant;
 
   if (enc->init_count-- > 0)
   {
@@ -187,7 +193,7 @@ float compute_pid(PID_t *pid, float setpoint, float sensed_output)
   float control_signal = p_term + i_term + d_term;
 
   make_between_control_bounds(pid, &control_signal);
-  ROS_INFO("[PID][%- 15s] error: % 10.5f, p: % 10.5f, i: % 10.5f, d: % 10.5f ---> control: % 10.5f", pid->control_type.c_str(), error, p_term, i_term, d_term, control_signal);
+  ROS_INFO("[PID][%- 15s] setpoint: % 10.5f, error: % 10.5f, p: % 10.5f, i: % 10.5f, d: % 10.5f -> control: % 10.5f", pid->control_type.c_str(), setpoint, error, p_term, i_term, d_term, control_signal);
 
   pid->last_error = error;
 
@@ -201,12 +207,12 @@ inline float get_linear_speed_from_ticks(const float ticks)
 
 inline float get_angular_speed(const float linear_speed_r, const float linear_speed_l)
 {
-  return (linear_speed_r - linear_speed_l) / DISTANCE_WHEEL_TO_WHEEL;
+  return (linear_speed_r - linear_speed_l) / (DISTANCE_WHEEL_TO_WHEEL);
 }
 
 inline float get_linear_speed(const float linear_speed_r, const float linear_speed_l)
 {
-  return (linear_speed_r - linear_speed_l) / 2.0;
+  return 1e-3 * (linear_speed_r + linear_speed_l) / 2.0;
 }
 
 inline float get_radius_from_icc(const float linear_speed_r, const float linear_speed_l)
@@ -216,7 +222,7 @@ inline float get_radius_from_icc(const float linear_speed_r, const float linear_
     return std::numeric_limits<float>::max();
   }
 
-  return DISTANCE_WHEEL_TO_WHEEL / 2.0 * (linear_speed_r + linear_speed_l) / (linear_speed_r - linear_speed_l);
+  return (DISTANCE_WHEEL_TO_WHEEL * 1e-3) / 2.0 * (linear_speed_r + linear_speed_l) / (linear_speed_r - linear_speed_l);
 }
 
 int main(int argc, char **argv)
@@ -235,25 +241,27 @@ int main(int argc, char **argv)
   pid_angular_linear.kd = atof(argv[4]);
   pid_angular_linear.control_type = "angular&linear speed";
 
-  pid_angular.kp = atof(argv[5]);
-  pid_angular.ki = atof(argv[6]);
-  pid_angular.kd = atof(argv[7]);
-  pid_angular.control_type = "angular speed";
+  pid_linear.kp = atof(argv[5]);
+  pid_linear.ki = atof(argv[6]);
+  pid_linear.kd = atof(argv[7]);
+  pid_linear.control_type = "linear speed";
 
   pid_angular_linear.period = 1.0 / 8.0; // tre period of the encoders
   pid_angular_linear.max_control = MAX_ANGULAR_LINEAR_SPEED;
   pid_angular_linear.min_control = MIN_ANGULAR_LINEAR_SPEED;
 
-  pid_angular.period = 1.0 / 8.0;
-  pid_angular.max_control = MAX_ANGULAR_SPEED;
-  pid_angular.min_control = MIN_ANGULAR_SPEED;
+  pid_linear.period = 1.0 / 8.0;
+  pid_linear.max_control = MAX_LINEAR_SPEED;
+  pid_linear.min_control = MIN_LINEAR_SPEED;
 
   ros::init(argc, argv, "algo_node");
 
   ros::NodeHandle n;
 
+#ifdef ASYNC_LOOP
   ros::AsyncSpinner spinner(0);
   spinner.start();
+#endif
 
   ros::Publisher cmd_vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
   ros::Subscriber lwheel_sub = n.subscribe("/lwheel", 1, lwheelCallback, ros::TransportHints().tcpNoDelay());
@@ -275,9 +283,13 @@ int main(int argc, char **argv)
 
   int16_t local_line_follower[LINE_FOLLOWER_LENGTH];
 
-  // wait for both encoders to have their first value
+// wait for both encoders to have their first value
+#ifdef ASYNC_LOOP
   semaphore_wait_first_for_encoders.wait();
   semaphore_wait_first_for_encoders.wait();
+#else
+  ros::spinOnce();
+#endif
 
   float angular_speed = 0, linear_speed = 0;
 
@@ -310,6 +322,8 @@ int main(int argc, char **argv)
         break;
       }
 
+      linear_speed = compute_pid(&pid_linear, 0.5, get_linear_speed(speed_linear_r, speed_linear_l));
+
       ROS_INFO("wheel speeds: R: % 10.5f, L: % 10.5f", speed_linear_r, speed_linear_l);
     }
 
@@ -341,7 +355,7 @@ int main(int argc, char **argv)
 
     // accelerate(0.5, acceleration_time, &linear_speed, &time_left);
     geometry_msgs::Twist vel;
-    vel.linear.x = 0.5;
+    vel.linear.x = linear_speed;
     vel.linear.y = 0.0;
     vel.linear.z = 0.0;
     vel.angular.x = 0.0;
@@ -378,6 +392,9 @@ int main(int argc, char **argv)
       }
     }).detach();
 
+#ifndef ASYNC_LOOP
+    ros::spinOnce();
+#endif
     const bool met = loop_rate.sleep();
 
     if (!met)
