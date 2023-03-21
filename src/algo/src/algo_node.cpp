@@ -10,7 +10,7 @@
 #include <chrono>
 #include <thread>
 
-#define MAX_LINE_FOLLOWING_SPEED 0.2
+#define MAX_LINE_FOLLOWING_SPEED 0.5
 
 #define LINE_FOLLOWER_LENGTH 5
 #define IR_THREASHOLD 900
@@ -343,8 +343,6 @@ float line_follower_sum(const int16_t local_line_follower[LINE_FOLLOWER_LENGTH],
   sum += (local_line_follower[3] > IR_THREASHOLD ? 1.0 : 0.0) * left;
   sum += (local_line_follower[4] > IR_THREASHOLD ? 1.0 : 0.0) * leftmost;
 
-  ROS_INFO("Sum: % 8.4f", sum);
-
   return sum;
 }
 
@@ -368,18 +366,29 @@ void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *co
     ROS_INFO("Line Follower activation @%d: %d", ii, local_line_follower[ii] > IR_THREASHOLD);
   }
 
+  // const float center_of_line = line_follower_sum(local_line_follower,
+  //                                                0,
+  //                                                0,
+  //                                                1,
+  //                                                0,
+  //                                                0);
+
   const float angle_of_line = line_follower_sum(local_line_follower,
-                                                -line_follower_sidemost,
-                                                -line_follower_side,
-                                                0,
-                                                line_follower_side,
-                                                line_follower_sidemost);
-  const float linear_speed = std::max(0.0f, std::abs(line_follower_sum(local_line_follower,
+                                        -line_follower_sidemost,
+                                        -line_follower_side,
+                                        0,
+                                        line_follower_side,
+                                        line_follower_sidemost);
+
+  // // if on center, then do not try to correct things
+  //  = (1 - center_of_line) * angle;
+
+  const float linear_speed = std::max(0.0f, line_follower_sum(local_line_follower,
                                                                        -MAX_LINE_FOLLOWING_SPEED, //leftmost
                                                                        -MAX_LINE_FOLLOWING_SPEED / 2,
                                                                        MAX_LINE_FOLLOWING_SPEED,
                                                                        -MAX_LINE_FOLLOWING_SPEED / 2,
-                                                                       -MAX_LINE_FOLLOWING_SPEED))); // rightmost
+                                                                       -MAX_LINE_FOLLOWING_SPEED)); // rightmost
 
   // if (linear_speed == 0)
   // {
