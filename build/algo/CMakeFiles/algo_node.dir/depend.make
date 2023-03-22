@@ -6,9 +6,10 @@ algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/devel/incl
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/devel/include/ropigo/SimpleWriteResponse.h
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/algo_node.cpp
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/decision_modes.hpp
-algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/enum_to_string.hpp
+algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/enum_functions.hpp
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/right_angle_directions.hpp
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/robot_actions.hpp
+algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /home/pi/catkin_ws/src/algo/src/us_head_positions.hpp
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /opt/ros/indigo/include/XmlRpcDecl.h
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /opt/ros/indigo/include/XmlRpcValue.h
 algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o: /opt/ros/indigo/include/geometry_msgs/Twist.h

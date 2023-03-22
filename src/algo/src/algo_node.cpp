@@ -21,13 +21,14 @@
 #define MAX_ANGULAR_LINEAR_SPEED 1.0f
 #define MIN_ANGULAR_LINEAR_SPEED -1.0f
 
-#define MAX_ANGULAR_SPEED 1.0f
-#define MIN_ANGULAR_SPEED -1.0f
+#define MAX_ANGULAR_SPEED 0.3f
+#define MIN_ANGULAR_SPEED -0.3f
 
 #define FREQUENCY 10          // Hz
 #define FREQUENCY_ENCODERS 10 // Hz
 
 #define US_HEAD_ROTATION_INC 0.1
+#define DEPTH_THRESHOLD 20 // cm
 
 #define ASYNC_LOOP
 #define DEBUG
@@ -63,11 +64,18 @@
 #include "decision_modes.hpp"
 #include "robot_actions.hpp"
 #include "right_angle_directions.hpp"
+#include "us_head_positions.hpp"
+
 #define GEN_ENUM
 #include "decision_modes.hpp"
 #include "robot_actions.hpp"
 #include "right_angle_directions.hpp"
+#include "us_head_positions.hpp"
 #undef GEN_ENUM
+
+#define GEN_VALUES
+#include "us_head_positions.hpp"
+#undef GEN_VALUES
 
 class Semaphore
 {
@@ -112,45 +120,8 @@ struct robot_t
 {
   float angular_speed;
   float linear_speed;
-  float us_head_position;
+  tagus_head_positions_t us_head_position = tagus_head_positions_t::US_ZERO;
   float angular_position; // be careful when using this attr, reset beforehand and make sure all actions performed by the robot are compatible (turn only is OK)
-
-  // private:
-  //   float linear_speed_after_application;
-  //   std::mutex linear_speed_applied_mutex;
-  //   float angular_speed_after_application;
-  //   std::mutex angular_speed_applied_mutex;
-
-  // public:
-  //   float get_linear_speed_after_application()
-  //   {
-  //     linear_speed_applied_mutex.lock();
-  //     const float ret = linear_speed_after_application;
-  //     linear_speed_applied_mutex.unlock();
-  //     return ret;
-  //   }
-
-  //   void set_linear_speed_after_application(const float linear_speed_after_application)
-  //   {
-  //     linear_speed_applied_mutex.lock();
-  //     this->linear_speed_after_application = linear_speed_after_application;
-  //     linear_speed_applied_mutex.unlock();
-  //   }
-
-  //   float get_angular_speed_after_application()
-  //   {
-  //     angular_speed_applied_mutex.lock();
-  //     const float ret = angular_speed_after_application;
-  //     angular_speed_applied_mutex.unlock();
-  //     return ret;
-  //   }
-
-  //   void set_angular_speed_after_application(const float angular_speed_after_application)
-  //   {
-  //     angular_speed_applied_mutex.lock();
-  //     this->angular_speed_after_application = angular_speed_after_application;
-  //     angular_speed_applied_mutex.unlock();
-  //   }
 } Robot;
 
 struct PID_t
@@ -187,7 +158,7 @@ union robot_orders_t
 {
   robot_speed_control_t advance_speed;
   float turning_position;
-  float us_head_position;
+  tagus_head_positions_t us_head_position;
 };
 
 struct robot_controls_t
@@ -400,9 +371,23 @@ float line_follower_sum(const int16_t local_line_follower[LINE_FOLLOWER_LENGTH],
   return sum;
 }
 
+bool is_depth_sensor_state_detected()
+{
+  depth.mutex.lock();
+  const int16_t local_depth = depth.depth;
+  depth.mutex.unlock();
+  return local_depth > DEPTH_THRESHOLD;
+}
+
 void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
 {
-  static const float ANGLE = M_PI_2;
+  if (is_depth_sensor_state_detected())
+  {
+    *mode = tagrobot_decision_mode_t::DEPTH_SENSING;
+    return;
+  }
+
+  static const float ANGLE = 2 * M_PI;
   static tagright_angle_directions_t right_angle_turning = tagright_angle_directions_t::NONE;
 
   int16_t local_line_follower[LINE_FOLLOWER_LENGTH];
@@ -423,7 +408,7 @@ void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *co
                                               2);
 
   if (right_angle_turning > tagright_angle_directions_t::NONE //
-      && std::abs(Robot.angular_position) > 1/2 * ANGLE)
+      && std::abs(Robot.angular_position) > 1 / 4 * ANGLE)
   {
     const float side_reached = line_follower_sum(local_line_follower,
                                                  1,
@@ -454,13 +439,14 @@ void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *co
       Robot.angular_position = 0; // reset the angular position before asking to watch the angle of the turn
 
       right_angle_turning = right_angle_turning_temp;
-      
+
       ROS_INFO("Right angle detected, now turning: %s", get_string_right_angle_directions_t(right_angle_turning));
     }
   }
   else if (right_angle_turning == tagright_angle_directions_t::NONE && right_angle == 0)
   {
-    ROBOT_ADVANCE(controls, 0, 0);
+    // ROBOT_ADVANCE(controls, MAX_LINE_FOLLOWING_SPEED, 0);
+    *mode = tagrobot_decision_mode_t::LINE_ACQUISITION;
     return;
   }
 
@@ -481,12 +467,12 @@ void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *co
                                                 line_follower_side,
                                                 line_follower_sidemost);
 
-  const float linear_speed = std::max(0.2f, line_follower_sum(local_line_follower,
-                                                              -MAX_LINE_FOLLOWING_SPEED, //leftmost
-                                                              -MAX_LINE_FOLLOWING_SPEED / 2,
-                                                              MAX_LINE_FOLLOWING_SPEED,
-                                                              -MAX_LINE_FOLLOWING_SPEED / 2,
-                                                              -MAX_LINE_FOLLOWING_SPEED)); // rightmost
+  const float linear_speed = std::max(0.15f, line_follower_sum(local_line_follower,
+                                                               -MAX_LINE_FOLLOWING_SPEED, //leftmost
+                                                               -MAX_LINE_FOLLOWING_SPEED / 2,
+                                                               MAX_LINE_FOLLOWING_SPEED,
+                                                               -MAX_LINE_FOLLOWING_SPEED / 2,
+                                                               -MAX_LINE_FOLLOWING_SPEED)); // rightmost
 
   ROS_INFO("Wanting to turn: % 8.4f", angle_of_line);
   ROBOT_ADVANCE(controls, linear_speed, angle_of_line);
@@ -499,18 +485,27 @@ void process_depth_sensing(tagrobot_decision_mode_t *mode, robot_controls_t *con
   int16_t local_depth = depth.depth;
   depth.mutex.unlock();
 
-  if (Robot.us_head_position == 0)
-  {
-    // scan from left to right
-    ROBOT_US_SENSE(controls, -M_PI_2);
-    return;
-  }
-  else if (Robot.us_head_position >= M_PI_2)
-  {
-    ROS_WARN("No openings found, retrying");
-    ROBOT_US_SENSE(controls, -M_PI_2);
-    return;
-  }
+  // switch (Robot.us_head_position)
+  // {
+  // case /* constant-expression */:
+  //   /* code */
+  //   break;
+  
+  // default:
+  //   break;
+  // }
+  // if (Robot.us_head_position == 0)
+  // {
+  //   // scan from left to right
+  //   ROBOT_US_SENSE(controls, -M_PI_2);
+  //   return;
+  // }
+  // else if (Robot.us_head_position >= M_PI_2)
+  // {
+  //   ROS_WARN("No openings found, retrying");
+  //   ROBOT_US_SENSE(controls, tagus_head_positions_t);
+  //   return;
+  // }
 
   if (local_depth > 40)
   {
@@ -521,7 +516,7 @@ void process_depth_sensing(tagrobot_decision_mode_t *mode, robot_controls_t *con
     return;
   }
 
-  ROBOT_US_SENSE(controls, Robot.angular_position + US_HEAD_ROTATION_INC);
+  // ROBOT_US_SENSE(controls, Robot.angular_position + US_HEAD_ROTATION_INC);
 }
 
 void process_line_acquisition(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
@@ -532,15 +527,17 @@ void process_line_acquisition(tagrobot_decision_mode_t *mode, robot_controls_t *
   std::copy(std::begin(line_follower), std::end(line_follower), std::begin(local_line_follower));
   mutex_line_follower.unlock();
 
-  if (line_follower_sum(local_line_follower, 1, 1, 1, 1, 1) > 0)
+  if (line_follower_sum(local_line_follower, 1, 1, 1, 1, 1) > 0.0f)
   {
     *mode = tagrobot_decision_mode_t::LINE_FOLLOWING;
+    return;
   }
   ROBOT_ADVANCE(controls, MAX_LINE_FOLLOWING_SPEED, 0);
 }
 
 robot_controls_t decision_state_machine(tagrobot_decision_mode_t *mode)
 {
+  ROS_INFO("Processing decision: %s", get_string_robot_decision_mode_t(*mode));
   robot_controls_t ret;
   switch (*mode)
   {
@@ -551,7 +548,7 @@ robot_controls_t decision_state_machine(tagrobot_decision_mode_t *mode)
     process_depth_sensing(mode, &ret);
     break;
   case tagrobot_decision_mode_t::LINE_ACQUISITION:
-    // process_line_acquisition(mode, &ret);
+    process_line_acquisition(mode, &ret);
     break;
   default:
     ROS_ERROR("State not implemented");
@@ -572,7 +569,7 @@ int main(int argc, char **argv)
 
   PID_INIT(pid_angular_linear, argv[2], argv[3], argv[4], MAX_ANGULAR_LINEAR_SPEED, MIN_ANGULAR_LINEAR_SPEED);
   PID_INIT(pid_linear, argv[5], argv[6], argv[7], MAX_LINEAR_SPEED, MIN_LINEAR_SPEED);
-  PID_INIT(pid_angular, argv[8], argv[9], argv[10], MAX_ANGULAR_LINEAR_SPEED, MIN_ANGULAR_LINEAR_SPEED);
+  PID_INIT(pid_angular, argv[8], argv[9], argv[10], MAX_ANGULAR_SPEED, MIN_ANGULAR_SPEED);
   line_follower_sidemost = atof(argv[11]);
   line_follower_side = atof(argv[12]);
   turn_rate_turn_mode = atof(argv[13]);
@@ -626,8 +623,6 @@ int main(int argc, char **argv)
     const float speed_linear_l = get_linear_speed_from_ticks(speed_ticks_l);
     Robot.angular_position = get_angular_position(speed_linear_r, speed_linear_l, Robot.angular_position);
 
-    // if (new_enc_value)
-    // {
 #ifndef ARBITRARY_DEBUG
     const robot_controls_t robot_control = decision_state_machine(&robot_decision);
 #else
@@ -656,10 +651,10 @@ int main(int argc, char **argv)
 #ifdef DEBUG
     case tagrobot_actions_t::ARBITRARY:
     {
-      const float angle = M_PI_2; 
-      Robot.angular_speed = compute_pid(&pid_angular, angle, Robot.angular_position);
-      // always stay on the same circle : if target is to go left, then if overshoot, do not go right but instead go back follwoing the same trajectory
-      Robot.linear_speed = (angle * Robot.angular_speed > 0 ? 1 : -1) * std::abs(Robot.angular_speed);
+      // const float angle = 0;
+      // Robot.angular_speed = compute_pid(&pid_angular, angle, Robot.angular_position);
+      // // always stay on the same circle : if target is to go left, then if overshoot, do not go right but instead go back follwoing the same trajectory
+      // Robot.linear_speed = (angle * Robot.angular_speed > 0 ? 1 : -1) * std::abs(Robot.angular_speed);
     }
     break;
 #endif
@@ -668,12 +663,11 @@ int main(int argc, char **argv)
     // Head controls
     switch (robot_control.action)
     {
-    case tagrobot_actions_t::ADVANCING:
-    case tagrobot_actions_t::TURNING:
-      Robot.us_head_position = 0;
-      break;
     case tagrobot_actions_t::US_SENSING:
       Robot.us_head_position = robot_control.order.us_head_position;
+      break;
+    default:
+      Robot.us_head_position = tagus_head_positions_t::US_ZERO;
       break;
     }
 
@@ -685,23 +679,19 @@ int main(int argc, char **argv)
       ROS_INFO("New decision has been taken: %s", get_string_robot_decision_mode_t(robot_decision));
       last_decision = robot_decision;
     }
-    // }
 
-    ROS_INFO("Controls: linear_speed: % 10.5f, angular_speed: % 10.5f, angular_position: % 10.5f, head position: % 10.5f", Robot.linear_speed, Robot.angular_speed, Robot.angular_position, Robot.us_head_position);
+    ROS_INFO("Controls: linear_speed: % 10.5f, angular_speed: % 10.5f, angular_position: % 10.5f, head position: %s", Robot.linear_speed, Robot.angular_speed, Robot.angular_position, get_string_us_head_positions_t(Robot.us_head_position));
 
     geometry_msgs::Twist vel;
     vel.linear.x = Robot.linear_speed;
     vel.angular.z = Robot.angular_speed;
     cmd_vel_pub.publish(vel);
 
-    // Robot.set_linear_speed_after_application(Robot.linear_speed);
-    // Robot.set_angular_speed_after_application(Robot.angular_speed);
-
     std_msgs::Int16 us_pos;
-    us_pos.data = (int16_t)Robot.us_head_position;
+    us_pos.data = get_value_us_head_positions_t(Robot.us_head_position);
     cmd_us_pub.publish(us_pos);
 
-    std::thread([&] { 
+    std::thread([&] {
       if (Robot.angular_speed > 0)
       {
         led_l_on.call(srv);

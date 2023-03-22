@@ -7,9 +7,10 @@ algo/CMakeFiles/algo_node.dir/src/algo_node.cpp.o
  /home/pi/catkin_ws/devel/include/ropigo/SimpleWriteResponse.h
  /home/pi/catkin_ws/src/algo/src/algo_node.cpp
  /home/pi/catkin_ws/src/algo/src/decision_modes.hpp
- /home/pi/catkin_ws/src/algo/src/enum_to_string.hpp
+ /home/pi/catkin_ws/src/algo/src/enum_functions.hpp
  /home/pi/catkin_ws/src/algo/src/right_angle_directions.hpp
  /home/pi/catkin_ws/src/algo/src/robot_actions.hpp
+ /home/pi/catkin_ws/src/algo/src/us_head_positions.hpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h
  /opt/ros/indigo/include/geometry_msgs/Twist.h
