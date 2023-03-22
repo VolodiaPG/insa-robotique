@@ -71,15 +71,23 @@ decision_modes.hpp
 /home/pi/catkin_ws/src/algo/src/decision_modes.hpp
 robot_actions.hpp
 /home/pi/catkin_ws/src/algo/src/robot_actions.hpp
+right_angle_directions.hpp
+/home/pi/catkin_ws/src/algo/src/right_angle_directions.hpp
 decision_modes.hpp
 /home/pi/catkin_ws/src/algo/src/decision_modes.hpp
 robot_actions.hpp
 /home/pi/catkin_ws/src/algo/src/robot_actions.hpp
+right_angle_directions.hpp
+/home/pi/catkin_ws/src/algo/src/right_angle_directions.hpp
 
 /home/pi/catkin_ws/src/algo/src/decision_modes.hpp
 enum_to_string.hpp
 /home/pi/catkin_ws/src/algo/src/enum_to_string.hpp
 
+/home/pi/catkin_ws/src/algo/src/enum_to_string.hpp
+
+/home/pi/catkin_ws/src/algo/src/right_angle_directions.hpp
+enum_to_string.hpp
 /home/pi/catkin_ws/src/algo/src/enum_to_string.hpp
 
 /home/pi/catkin_ws/src/algo/src/robot_actions.hpp
