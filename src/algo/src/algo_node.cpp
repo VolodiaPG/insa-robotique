@@ -32,6 +32,8 @@
 
 #define DEPTH_WAIT_BEFORE_ACQUISITION 500 //ms
 
+#define MAX_ERROR_WHEN_TURNED 0.03
+
 #define ASYNC_LOOP
 #define DEBUG
 
@@ -286,11 +288,14 @@ void line_follower_callback(const std_msgs::Int16MultiArray::ConstPtr &msg)
 void ultrasonic_callback(const std_msgs::Int16::ConstPtr &msg)
 {
   ROS_INFO("Ultrasonic depth sensed: %d", msg->data);
-  if (msg->data >= 0){
+  if (msg->data >= 0)
+  {
     depth.mutex.lock();
     depth.depth = msg->data;
     depth.mutex.unlock();
-  }else{
+  }
+  else
+  {
     ROS_WARN("Discarded ultrasonic value");
   }
 }
@@ -385,7 +390,8 @@ bool is_depth_sensor_state_detected()
   return local_depth < DEPTH_THRESHOLD;
 }
 
-tagus_head_positions_t get_opposed_side(const tagus_head_positions_t position){
+tagus_head_positions_t get_opposite_side(const tagus_head_positions_t position)
+{
   switch (position)
   {
   case tagus_head_positions_t::US_LEFT:
@@ -503,9 +509,14 @@ void process_line_following(tagrobot_decision_mode_t *mode, robot_controls_t *co
 void process_depth_sensing(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
 {
   ROBOT_ADVANCE(controls, 0, 0);
-  if (!is_depth_sensor_state_detected()){
+  if (!is_depth_sensor_state_detected())
+  {
     // no walls detected
-    *mode = tagrobot_decision_mode_t::DEPTH_FOLLOWING;
+
+    // turn the sensor to the correct side (of the wall)
+    const tagus_head_positions_t opposite_side = get_opposite_side(Robot.us_head_position);
+    ROBOT_US_SENSE(controls, opposite_side);
+    *mode = tagrobot_decision_mode_t::ROTATION_AFTER_DEPTH_SENSED_APERTURE;
     return;
   }
 
@@ -529,15 +540,46 @@ void process_depth_sensing_waiting(tagrobot_decision_mode_t *mode, robot_control
   static const int WAITING_ITERATIONS = (float)(DEPTH_WAIT_BEFORE_ACQUISITION * FREQUENCY) / 1000;
   static int counter = WAITING_ITERATIONS;
 
-  if (counter == WAITING_ITERATIONS){
+  if (counter == WAITING_ITERATIONS)
+  {
     ROS_INFO("Now depth-sensing-waiting for %d iterations...", WAITING_ITERATIONS);
   }
   counter--;
 
-  if (counter == 0){
+  if (counter == 0)
+  {
     counter = WAITING_ITERATIONS;
     *mode = tagrobot_decision_mode_t::DEPTH_SENSING;
     ROS_INFO("Finished depth-sensing-waiting after %d iterations", WAITING_ITERATIONS);
+  }
+}
+
+void process_rotation_after_depth_sensed_aperture(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
+{
+  const tagus_head_positions_t opposite_side = get_opposite_side(Robot.us_head_position);
+  Robot.angular_position = 0;
+  // the previous state turned the sensor to the position where the wall will be
+  switch (opposite_side)
+  {
+  case tagus_head_positions_t::US_RIGHT:
+    ROBOT_TURN(controls, M_PI); // turn left
+    goto changeState;
+  case tagus_head_positions_t::US_LEFT:
+    ROBOT_TURN(controls, -M_PI); // turn right
+    goto changeState;
+  default:
+    return;
+  }
+
+changeState:
+  *mode = tagrobot_decision_mode_t::ROTATION_WAITING_COMPLETION_APERTURE;
+}
+
+void process_rotation_waiting_completion_aperture(tagrobot_decision_mode_t *mode, robot_controls_t *controls)
+{
+  if (std::abs(Robot.angular_position) < MAX_ERROR_WHEN_TURNED)
+  {
+    *mode = tagrobot_decision_mode_t::DEPTH_FOLLOWING;
   }
 }
 
@@ -574,6 +616,12 @@ robot_controls_t decision_state_machine(tagrobot_decision_mode_t *mode)
     break;
   case tagrobot_decision_mode_t::DEPTH_SENSING_WAITING:
     process_depth_sensing_waiting(mode, &ret);
+    break;
+  case tagrobot_decision_mode_t::ROTATION_AFTER_DEPTH_SENSED_APERTURE:
+    process_rotation_after_depth_sensed_aperture(mode, &ret);
+    break;
+  case tagrobot_decision_mode_t::ROTATION_WAITING_COMPLETION_APERTURE:
+    process_rotation_waiting_completion_aperture(mode, &ret);
     break;
   default:
     ROS_ERROR("State not implemented");
@@ -691,9 +739,9 @@ int main(int argc, char **argv)
     case tagrobot_actions_t::US_SENSING:
       Robot.us_head_position = robot_control.order.us_head_position;
       break;
-    // default:
-    //   Robot.us_head_position = tagus_head_positions_t::US_ZERO;
-    //   break;
+      // default:
+      //   Robot.us_head_position = tagus_head_positions_t::US_ZERO;
+      //   break;
     }
 
     ROS_INFO("Sensed wheel speeds: R: % 10.5f, L: % 10.5f", speed_linear_r, speed_linear_l);
@@ -711,7 +759,6 @@ int main(int argc, char **argv)
     vel.linear.x = Robot.linear_speed;
     vel.angular.z = Robot.angular_speed;
     cmd_vel_pub.publish(vel);
-
 
     static tagus_head_positions_t last_head_pos = tagus_head_positions_t::US_LEFT;
     if (last_head_pos != Robot.us_head_position)

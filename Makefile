@@ -8,7 +8,7 @@ run: compile run_only
 run_log: compile run_only_log
 
 run_only:
-	rosrun algo algo_node 15  \
+	rosrun algo algo_node 40  \
 		0.4 0.00 0.01 \
 		0.7 0.0 0.0 \
 		0.1 0 0 \
